@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/shared/components/my_encryption_decryption.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:doctor_app/app/data/patients_account_model.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
@@ -30,11 +32,18 @@ class ForgotPasswordPatientsController extends GetxController {
         .where('email', isEqualTo: email).get().then((value) {
       if (value.docs.length != 0) {
         value.docs.forEach((element) {
-          patientsAccountModel=PatientsAccountModel.formJson(element.data());
-          print(patientsAccountModel?.token);
+          var mypassword=element.data()['password'];
+          var password=MyEncryptionDecryption.decryptAES(mypassword);
+          print("password $password");
+          FirebaseAuth.instance.signInWithEmailAndPassword(email:element.data()['email'] , password: password).then((value){
+            patientsAccountModel=PatientsAccountModel.formJson(element.data());
+            print(patientsAccountModel?.token);
+            loginController.moveBetweenPages('CreatePasswordPatients',arguments: patientsAccountModel!.token);
+update();
+          });
         });
+        update();
 
-      loginController.moveBetweenPages('CreatePasswordPatients',arguments: patientsAccountModel!.token);
 
       } else {
         print("The email isn't in doctors ");

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -39,16 +41,25 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
                   Stack(
                     children: [
 
-                      Image(image:NetworkImage("${argument['image']}"),height: 400,width: double.infinity,fit: BoxFit.cover,),
+                    controller.imageArticle!=null?  Image.file(controller.imageArticle!,height: 400,width: double.infinity,fit: BoxFit.cover,):Image(image:NetworkImage("${argument['image']}"),height: 400,width: double.infinity,fit: BoxFit.cover,),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 60),
                         child: Row(
                           children: [
-                            Container(width: 50,height: 50,decoration: BoxDecoration(
-                              color: Colors.white,
+                            GestureDetector(
+                              onTap: (){
+                                login.moveBetweenPages('AddArticleView',arguments: {
+                                  "id":argument['id'],
+                                  "nameCategories":argument['nameCategories'],
+                                }
+                                );
+                              },
+                              child: Container(width: 50,height: 50,decoration: BoxDecoration(
+                                color: Colors.white,
 
-                              borderRadius: BorderRadius.circular(10),
-                            ),child: const Icon(IconBroken.Arrow___Left_2),),
+                                borderRadius: BorderRadius.circular(10),
+                              ),child: const Icon(IconBroken.Arrow___Left_2),),
+                            ),
                             Spacer(),
                             Padding(
                               padding: const EdgeInsets.all(8.0),

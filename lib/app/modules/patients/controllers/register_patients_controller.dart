@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/shared/components/my_encryption_decryption.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -27,13 +28,15 @@ class RegisterPatientsController extends GetxController {
     super.onClose();
   }
 
-  void register(dynamic email, dynamic password, dynamic name, dynamic phone) {
+  Future<void> register(dynamic email, dynamic password, dynamic name, dynamic phone) async {
+    var text= await MyEncryptionDecryption.encryptAES("$password");
+    print(" the ex is${text.base64}");
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
       GetStorage().write("tokenOfPatients", value.user?.uid);
 
-      createAccount(name, email, phone, value.user?.uid, password).then((
+      createAccount(name, email, phone, value.user?.uid, text.base64).then((
           value) {});
       update();
     })

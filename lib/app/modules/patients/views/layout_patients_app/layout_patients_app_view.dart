@@ -1,8 +1,5 @@
-import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:doctor_app/common_widget/custom_size_box.dart';
-import 'package:doctor_app/shared/locale/locale_controller.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
@@ -24,7 +21,7 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
     return GetBuilder<LayoutPatientsAppController>(
       init: LayoutPatientsAppController(),
       builder: (controller){
-        return  Scaffold(
+        return Scaffold(
           appBar:               AppBar(actions: [
             Padding(
               padding: const EdgeInsets.only(right: 10),
@@ -40,7 +37,6 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
                     GestureDetector(
                       onTap:(){
                         controller.changeLang('en');
-                        loginController.moveBetweenPages('LayoutPatientsAppView');
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -53,7 +49,6 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
                     CustomSizeBox(10),
                     GestureDetector(
                       onTap: (){
-                        loginController.moveBetweenPages('LayoutPatientsAppView');
 
                         controller.changeLang('ar');
 
@@ -73,7 +68,8 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
               },child: const Icon(Icons.language_sharp,color: Colors.black,)),
             ),
 
-          ],titleSpacing: 20,centerTitle: false,title: CustomText(Colors.black,20,FontWeight.w600,controller.titleOfPatientsScreen[indexPatients]),),
+          ],titleSpacing: 20,centerTitle: false,title: CustomText(Colors.black,20,FontWeight.w600,controller.titleOfPatientsScreen[indexPatients])
+          ),
       body: controller.screenPatients[indexPatients] ,
 
           bottomNavigationBar: BottomNavigationBar(

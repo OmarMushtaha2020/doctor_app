@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
@@ -19,7 +20,18 @@ class SubscriptionsView extends GetView<LayoutPatientsAppController> {
       init: LayoutPatientsAppController(),
       builder: (controller){
         return  Scaffold(
-          body:        ListView.separated(shrinkWrap: true,itemBuilder: (context,index)=>
+          body:  controller.subsriptions.length==0? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SpinKitFadingCube(
+                color: Colors.blue,
+
+                size: 50.0,
+              ),
+              CustomSizeBox(30),
+              CustomText(Colors.black, 15, FontWeight.w600, "There is no Subscriptions")
+            ],
+          ):ListView.separated(shrinkWrap: true,itemBuilder: (context,index)=>
               Stack(
                 alignment: AlignmentDirectional.topEnd,
                 children: [

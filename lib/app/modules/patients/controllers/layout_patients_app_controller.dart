@@ -12,7 +12,7 @@ import 'package:doctor_app/app/modules/patients/views/home_patients_view.dart';
 import 'package:doctor_app/app/modules/patients/views/profile_patients_view.dart';
 import 'package:doctor_app/app/modules/patients/views/subscriptions_view.dart';
 import 'package:get_storage/get_storage.dart';
-String tokenOfPatients='';
+dynamic tokenOfPatients='';
 var indexPatients = 0;
 bool value=false;
 ArticleController articleController=ArticleController();

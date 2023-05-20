@@ -83,7 +83,7 @@ index==2;
       value.ref.getDownloadURL().then((value) {
         print(value);
      valueOfImage=value;
-
+print(valueOfImage);
         update();
       }
       ).catchError((error) {
@@ -104,7 +104,9 @@ index==2;
         .putFile(coverImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
+        valueOfCover=value;
+        update();
+        print(valueOfCover);
 
         update();
       }).catchError((error) {

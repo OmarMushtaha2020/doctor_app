@@ -27,21 +27,18 @@ void main()async {
   await GetStorage.init();
 
   valueOfSelection= GetStorage().read("valueOfSelection");
-  if(valueOfSelection==null){
 
-  }
   if(valueOfSelection==false){
     tokenOfDoctors= GetStorage().read("token");
+    print("the tokenOfDoctors is$tokenOfDoctors ");
     if(tokenOfDoctors!=null){
       tokenValueDoctor=true;
       print(tokenOfDoctors);
-      var layoutController=Get.lazyPut(() => LayoutController());
 
-      var layout=   Get.find<LayoutController>();
-      layout.getAllCategories();
 
     }else{
       tokenValueDoctor=false;
+      // valueOfSelection=null;
     }
   }
   if(valueOfSelection==true){
@@ -55,6 +52,8 @@ void main()async {
 
     }else{
       tokenValuePatients=false;
+      // valueOfSelection=null;
+
     }
   }
 

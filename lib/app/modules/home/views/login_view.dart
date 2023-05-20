@@ -1,3 +1,4 @@
+import 'package:doctor_app/shared/components/my_encryption_decryption.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
@@ -16,6 +17,12 @@ var formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(onPressed: ()async{
+      //   var text= await MyEncryptionDecryption.encryptAES("omarss");
+      //   print(" the ex is${text.base64}");
+      //   var doc=MyEncryptionDecryption.decryptAES(text);
+      //   print("the dox is$doc");
+      // },),
         appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),

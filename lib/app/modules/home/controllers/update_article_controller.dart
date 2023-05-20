@@ -36,7 +36,7 @@ class UpdateArticleController extends GetxController {
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,
     );
-
+update();
     if (pickedFile != null) {
       imageArticle = File(pickedFile.path);
       print(imageArticle!.path);
@@ -54,7 +54,12 @@ class UpdateArticleController extends GetxController {
         .putFile(imageArticle!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
+        update();
+
         valueOfImage=value;
+        update();
+
+        update();
         print("the value is $valueOfImage");
         update();
       }

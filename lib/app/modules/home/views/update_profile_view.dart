@@ -69,7 +69,6 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
 
       }
 
-      controller.updateDoctorsData(name: name.text, phone: phone.text, bio: bio.text);
 
     }
 

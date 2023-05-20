@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -26,20 +27,15 @@ class CreatePasswordView extends GetView<CreatePasswordController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children:  [
             CustomSizeBox(25),
-
             CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Create a new password for the doctor's account".tr),0),
             CustomSizeBox(10),
-
-            CustomAnimation( CustomText(Colors.grey, 12, FontWeight.w400, "Create your new password to login".tr),500)
-            , CustomSizeBox(20),
-
-            CustomAnimation( CustomTextForm(password, "PASSWORD".tr,TextInputType.visiblePassword),1000),
+            CustomAnimation( CustomText(Colors.grey, 12, FontWeight.w400, "Create your new password to login".tr),500),
+            CustomSizeBox(20), CustomAnimation( CustomTextForm(password, "PASSWORD".tr,TextInputType.visiblePassword),1000),
             CustomSizeBox(20),
-
             CustomAnimation( CustomTextForm(confirm_password, "CONFIRM PASSWORD".tr,TextInputType.visiblePassword),1500),
-
             CustomSizeBox(25),
             CustomAnimation( CustomButtom(() {
+
               controller.upatePasswordOfAccountDoctors(token,password.text,confirm_password.text);
             }, Colors.blue, 50, double.infinity, 10, Colors.white, "Save".tr, 15),2000)
           ],

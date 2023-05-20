@@ -1,5 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
+import 'package:doctor_app/shared/components/my_encryption_decryption.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,7 +13,8 @@ import 'package:doctor_app/app/modules/home/controllers/create_password_controll
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
 
 PatientsAccountModel? patientsAccountModel;
-String tokenOfDoctors='';
+dynamic tokenOfDoctors='';
+
 class RegisterController extends GetxController {
 
 
@@ -30,13 +35,16 @@ class RegisterController extends GetxController {
   }
 
 
-  void register(dynamic email, dynamic password, dynamic name, dynamic phone) {
+  Future<void> register(dynamic email, dynamic password, dynamic name, dynamic phone) async {
+    var text= await MyEncryptionDecryption.encryptAES("$password");
+    print(" the ex is${text.base64}");
+
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
       GetStorage().write('token', value.user?.uid);
 
-      createAccount(name,email,phone,value.user?.uid,password);
+      createAccount(name,email,phone,value.user?.uid,text.base64);
     })
         .catchError((error) {
       print(error.toString());
@@ -62,4 +70,5 @@ class RegisterController extends GetxController {
     });
   update();
   }
+
 }
