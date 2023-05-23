@@ -1,7 +1,7 @@
 class MessageModel {
   late String senderId;
   late String receiverId;
-  late String dateTime;
+  late var dateTime;
   late String text;
 bool ?value;
   MessageModel({

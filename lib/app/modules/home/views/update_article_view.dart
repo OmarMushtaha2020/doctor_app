@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
    var formKey=GlobalKey<FormState>();
    var articleName=TextEditingController();
    var articleDetails=TextEditingController();
-
+LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppController();
    var argument=Get.arguments;
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,20 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
                         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 60),
                         child: Row(
                           children: [
-                            GestureDetector(
+                            layoutPatientsAppController.initLang==Locale("ar")?GestureDetector(
+        onTap: (){
+        login.moveBetweenPages('AddArticleView',arguments: {
+        "id":argument['id'],
+        "nameCategories":argument['nameCategories'],
+        }
+        );
+        },
+        child: Container(width: 50,height: 50,decoration: BoxDecoration(
+        color: Colors.white,
+
+        borderRadius: BorderRadius.circular(10),
+        ),child: const Icon(IconBroken.Arrow___Right_2),),
+        ): GestureDetector(
                               onTap: (){
                                 login.moveBetweenPages('AddArticleView',arguments: {
                                   "id":argument['id'],

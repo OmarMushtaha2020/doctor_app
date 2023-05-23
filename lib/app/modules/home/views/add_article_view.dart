@@ -41,7 +41,7 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
   loginController.moveBetweenPages('layout');
 
 // });
-                },child: layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==const Locale("ar") ?const Icon(IconBroken.Arrow___Right_2,color: Colors.black,):const Icon(IconBroken.Arrow___Left_2,color: Colors.black,))
+                },child: layoutPatientsAppController.initLang==const Locale("ar") ?const Icon(IconBroken.Arrow___Right_2,color: Colors.black,):const Icon(IconBroken.Arrow___Left_2,color: Colors.black,))
                 ,CustomSizeBox(0,width: 20,),
                 CustomSizeBox(0,width: 10,),CustomText(Colors.black, 20, FontWeight.w600, "${argument['nameCategories']}"),
               ],
@@ -90,7 +90,7 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
 const Spacer(),
                  controller.article[index].tokonofDoctor==tokenOfDoctors?
                  Padding(
-                    padding: layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==const Locale("ar") ?const EdgeInsets.only(left: 10):const EdgeInsets.only(right: 10),
+                    padding:layoutPatientsAppController.initLang==Locale("ar")?const EdgeInsets.only(left: 10):const EdgeInsets.only(right: 10),
                     child: GestureDetector(onTap: (){
                       loginController.moveBetweenPages('UpdateArticleView',arguments: {
                         "image":controller.article[index].image,

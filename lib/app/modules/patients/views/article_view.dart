@@ -31,7 +31,7 @@ controller.getAllArticle("${argument['id']}");
 // controller.changeValueOfSubscriptionsPatients(true);
   loginController.moveBetweenPages('LayoutPatientsAppView');
 
-                },child: layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar")?Icon(IconBroken.Arrow___Right_2,color: Colors.black,): Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
+                },child: layoutPatientsAppController.initLang==Locale("ar")?Icon(IconBroken.Arrow___Right_2,color: Colors.black,): Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
                 CustomSizeBox(0,width: 20,),
                 CustomSizeBox(0,width: 10,),CustomText(Colors.black, 20, FontWeight.w600, "${argument['nameCategories']}"),
               ],
@@ -79,8 +79,8 @@ controller.getAllArticle("${argument['id']}");
                   CustomText(Colors.black,20,FontWeight.w600,"${controller.article[index].name}"),
                   const Spacer(),
                    Padding(
-                    padding:layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar") ? EdgeInsets.only(left: 10): EdgeInsets.only(right: 10),
-                    child: layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar") ?Icon(IconBroken.Arrow___Left_2,color: Colors.black,):Icon(IconBroken.Arrow___Right_2,color: Colors.black,),
+                    padding:layoutPatientsAppController.initLang==Locale("ar")? EdgeInsets.only(left: 10): EdgeInsets.only(right: 10),
+                    child: layoutPatientsAppController.initLang==Locale("ar") ?Icon(IconBroken.Arrow___Left_2,color: Colors.black,):Icon(IconBroken.Arrow___Right_2,color: Colors.black,),
                   ),
                 ],
               ),

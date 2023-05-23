@@ -21,97 +21,6 @@ class LayoutPatientsAppController extends GetxController {
   List<CategoriesModel> categories = [];
   List<CategoriesModel> subsriptions = [];
   CategoriesModel? categoriesModel;
-// Future<void>  addCategoriesToPatients() async {
-//     FirebaseFirestore.instance.collection("Categories").get().then((values) {
-//       update();
-//
-//       values.docs.forEach((element) {
-//         update();
-//
-//         FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value) {
-//    if(value.docs.isEmpty){
-//      print("No");
-//      update();
-//
-//      FirebaseFirestore.instance.collection("Categories").get().then((value) {
-//        print(value.docs.length);
-//          print("!");
-//           categoriesModel=CategoriesModel(element.data()['nameCategories'],element.data()['detailsCategories'], element.data()['imageCategories'], element.data()['like'],id:element.data()['id']);
-//        update();
-//
-//        FirebaseFirestore.instance
-//              .collection('patients')
-//              .doc(tokenOfPatients).collection("myCategories").add(categoriesModel?.toMap()??{}).then((value) {
-//            update();
-//
-//            FirebaseFirestore.instance
-//                .collection('patients')
-//                .doc(tokenOfPatients).collection("myCategories").doc(value.id).update({"idOfMyCategories":value.id}).then((value) {
-//                  update();
-//            });
-//          });
-//
-//      });
-//
-//    }else{
-//      print("yes");
-//      deleteCollection('patients','myCategories').then((value) {
-//        update();
-//
-//        categoriesModel=CategoriesModel(element.data()['nameCategories'],element.data()['detailsCategories'], element.data()['imageCategories'], element.data()['like'],id:element.data()['id']);
-// update();
-//        FirebaseFirestore.instance
-//           .collection('patients')
-//           .doc(tokenOfPatients).collection("myCategories").add(categoriesModel?.toMap()??{}).then((value) {
-//          update();
-//
-//          FirebaseFirestore.instance
-//              .collection('patients')
-//              .doc(tokenOfPatients).collection("myCategories").doc(value.id).update({"idOfMyCategories":value.id}).then((value) {
-//                update();
-//          });
-//        });
-//      });
-// //      FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value) {
-// // value.docs.forEach((element) {
-// // element.reference.delete();
-// //
-// // });
-// // if(value.docs.isEmpty){
-// //   FirebaseFirestore.instance.collection("Categories").get().then((value) {
-// //     value.docs.forEach((element) {
-// //       FirebaseFirestore.instance
-// //           .collection('patients')
-// //           .doc(tokenOfPatients).collection("myCategories").add(element.data()).then((value) {
-// //         // getAllCategories();
-// //       });
-// //     });
-// //
-// //   });
-// //
-// //
-// // }
-//
-//
-//      // });
-//    }
-//  });
-//
-//
-//
-//       });
-//
-//     });
-// update();
-//   }
-  // Future<void> deleteCollection(String collectionPath1,String collectionPath2) async {
-  //   CollectionReference collectionRef = FirebaseFirestore.instance.collection(collectionPath1).doc(tokenOfPatients).collection(collectionPath2);
-  //   QuerySnapshot querySnapshot = await collectionRef.get();
-  //   querySnapshot.docs.forEach((doc) async {
-  //     await doc.reference.delete();
-  //   });
-  //   await collectionRef.doc().delete(); // delete the collection itself
-  // }
 Future<void>getAllSubsriptions() async{
   if(subsriptions.isNotEmpty){
     subsriptions=[];
@@ -177,10 +86,12 @@ print("my id is$id");
     });
     update();
   }
-Locale? initLang=GetStorage().read("lang")==null?Get.deviceLocale: Locale(GetStorage().read("lang"));
+Locale? initLang=GetStorage().read("lang")==null?Locale("${Get.deviceLocale}"): Locale(GetStorage().read("lang"));
   void changeLang(String code){
     Locale locale=Locale('$code');
     GetStorage().write("lang", code);
+    update();
+    print(initLang);
     Get.updateLocale(locale);
     update();
   }

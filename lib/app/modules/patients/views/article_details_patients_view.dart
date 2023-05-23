@@ -29,7 +29,7 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
                   children: [
 
                     Image(image:NetworkImage("${argument['image']}"),height: 400,width: double.infinity,fit: BoxFit.cover,),
-                    layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar")?
+                    layoutPatientsAppController.initLang==Locale("ar")?
                     Padding(
                       padding: const EdgeInsets.only(right: 20,top: 60),
                       child: GestureDetector(

@@ -11,9 +11,9 @@ import 'package:doctor_app/shared/styles/icon_broken.dart';
 
 class PageSelectionDoctorOrPatientView extends GetView<PageSelectionDoctorOrPatientController> {
   LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppController();
-
   @override
   Widget build(BuildContext context) {
+    print("the initLang is${layoutPatientsAppController.initLang}");
     WidgetsBinding.instance.addPostFrameCallback((_) {
 print("omar");
     });
@@ -57,9 +57,9 @@ toolbarHeight: 100,
             height: 200,
 
             child: Align(
-              alignment: layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar")?  AlignmentDirectional.bottomStart:AlignmentDirectional.bottomEnd,
+              alignment:layoutPatientsAppController.initLang==Locale("ar")?  AlignmentDirectional.bottomStart:AlignmentDirectional.bottomEnd,
               child: Stack(
-                alignment:layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar")? AlignmentDirectional.bottomStart: AlignmentDirectional.bottomEnd,
+                alignment:layoutPatientsAppController.initLang==Locale("ar")? AlignmentDirectional.bottomStart: AlignmentDirectional.bottomEnd,
                 children: [
                   Transform.rotate(angle: 22,child: Image.asset('assets/images/ellipse.png',color: Colors.blue,)),
                   Transform.rotate(angle: 22,child: Image.asset('assets/images/ellipse_2.png',color: Colors.blue,)),

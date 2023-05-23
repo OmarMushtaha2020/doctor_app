@@ -77,7 +77,7 @@ class HomePatientsView extends GetView<LayoutPatientsAppController> {
                           const Spacer(),
                           Padding(
 
-                            padding:controller.initLang==Get.deviceLocale||controller.initLang==Locale("at")? EdgeInsets.only(left:10 ):EdgeInsets.only(right:10 ),
+                            padding:controller.initLang==Locale("ar")? EdgeInsets.only(left:10 ):EdgeInsets.only(right:10 ),
                             child: customCircleAvatar(
                               20,
                               color: controller.categories[index].like==false?Colors.grey:Colors.blue,

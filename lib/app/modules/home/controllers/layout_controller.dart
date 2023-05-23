@@ -60,31 +60,23 @@ List titleOfScreen=[
     bottomSheet=false;
     if(index==0){
       getAllCategories();
-      // groupChatController.changeValueOfChat(false);
-      //
-      // addArticleController.changeValueOfHome(false);
+
 
     }
     if(index==1){
       getAllAccountPatients();
-      // groupChatController.changeValueOfChat(false);
-      //
-      // addArticleController.changeValueOfHome(false);
+
 
       update();
     }
     if(index==2){
-      // groupChatController.changeValueOfChat(false);
-      //
-      // addArticleController.changeValueOfHome(false);
+
 
     }
     if(index==3){
 
       getDoctorsData();
-      // groupChatController.changeValueOfChat(false);
-      //
-      // addArticleController.changeValueOfHome(false);
+
 
       update();
     }
@@ -151,7 +143,7 @@ void getAllCategories(){
   CategoriesModel? categoriesModel;
 Future<void> addCategories(nameCategories,detailsCategories,imageCategories) async {
     if(nameCategories!=null&&detailsCategories!=null&&imageCategorie?.path.length!=0){
-       categoriesModel =CategoriesModel(nameCategories,detailsCategories,imageCategories,false);
+       categoriesModel =CategoriesModel(nameCategories,detailsCategories,imageCategories,false,tokenOfDoctors);
        Future.delayed(Duration(milliseconds: 1000)).then((value) {
          FirebaseFirestore.instance.collection("Categories").where("nameCategories",isEqualTo: nameCategories).get().then((value){
            if(  value.docs.length==0){
@@ -166,7 +158,7 @@ Future<void> addCategories(nameCategories,detailsCategories,imageCategories) asy
                            print(value.docs.length);
                            print("!");
                            update();
-categoriesModel=CategoriesModel(nameCategories,detailsCategories,imageCategories,false,id: values.id);
+categoriesModel=CategoriesModel(nameCategories,detailsCategories,imageCategories,false,tokenOfDoctors,id: values.id);
                            FirebaseFirestore.instance
                                .collection('patients')
                                .doc(element.data()['token']).collection(

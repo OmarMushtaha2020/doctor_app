@@ -1,4 +1,5 @@
 
+import 'package:doctor_app/app/modules/home/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -94,13 +95,13 @@ class HomeView extends GetView<LayoutController> {
                   )
                     ,),
                 ),
-                Positioned(
+               controller.categories[index].tokenOfDoctor==tokenOfDoctors? Positioned(
                   right: 10,
                   top: 20,
                   child: customCircleAvatar(20,widget:  const Icon(IconBroken.Delete,color: Colors.white,),color: Colors.blue,onTap: (){
                     controller.deleteCategories(controller.categories[index].id);
                   }),
-                ),
+                ):Container(),
               ],
             ), separatorBuilder: (controller,index)=>CustomSizeBox(20), itemCount: controller.categories.length),
             bottomSheet:

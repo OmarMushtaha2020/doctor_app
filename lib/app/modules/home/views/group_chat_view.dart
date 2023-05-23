@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,7 @@ class GroupChatView extends GetView<GroupChatController> {
 controller.changeValueOfIndex(1);
 
 
-                        },child:layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar")?Icon(IconBroken.Arrow___Right_2,color: Colors.black,): Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
+                        },child:layoutPatientsAppController.initLang==Locale("ar")?Icon(IconBroken.Arrow___Right_2,color: Colors.black,): Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
                         CustomSizeBox(0,width: 20,),
 
                         customCircleAvatar(25,color: Colors.white,                        image:"${argument['cover']}")
@@ -98,7 +99,7 @@ controller.changeValueOfIndex(1);
               controller.sendMessage(
               receiverId: argument['token'],
 
-              dateTime: DateTime.now().toString(),
+              dateTime: FieldValue.serverTimestamp(),
               text: messageController.text,
 
               );

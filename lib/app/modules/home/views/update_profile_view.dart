@@ -41,7 +41,7 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
                     final layoutPatientsAppController =Get.lazyPut(()=>LayoutController());
 
                     loginController.moveBetweenPages('layout');
-                  },child: layoutPatientsAppController.initLang==Get.deviceLocale||layoutPatientsAppController.initLang==Locale("ar") ?Icon(IconBroken.Arrow___Right_2,color: Colors.black,):Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
+                  },child: layoutPatientsAppController.initLang==Locale("ar") ?Icon(IconBroken.Arrow___Right_2,color: Colors.black,):Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
                   SizedBox(width: 20,),
                   CustomText(Colors.black, 18, FontWeight.w600, "Edit Profile".tr),
 
@@ -81,115 +81,117 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
               padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
               child: Form(
                 key: formKey,
-                child: Column(
-                  children: [
-                    Stack(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      clipBehavior: Clip.none,
-                      children: [
-                        CustomAnimation(
-                            Stack(
-                              alignment: AlignmentDirectional.topEnd,
-                              children: [
-                                Container(
-                                  width:double.infinity,
-                                  height: 200,
-                                  decoration:   BoxDecoration(
-
-                                    image: DecorationImage(image: controller.coverImage == null
-                                        ? NetworkImage('${doctorAccountModel?.cover}')
-                                        : FileImage(controller.coverImage!) as ImageProvider,
-                                        fit: BoxFit.cover),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: customCircleAvatar(18,color:Colors.blue,widget: const Icon(IconBroken.Camera),onTap: (){
-                                    controller.getCoverImage(name.text,phone.text,bio.text);
-                                  }),
-                                ),
-
-                              ],
-                            ),0
-                        ),
-                        Positioned(
-                          top: 130,
-                          child: CustomAnimation(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Stack(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        clipBehavior: Clip.none,
+                        children: [
+                          CustomAnimation(
                               Stack(
-                                alignment: AlignmentDirectional.bottomEnd,
+                                alignment: AlignmentDirectional.topEnd,
                                 children: [
-                                  GestureDetector(
-                                    onTap: (){
-                                      controller.getProfileImage(name.text,phone.text,bio.text);
+                                  Container(
+                                    width:double.infinity,
+                                    height: 200,
+                                    decoration:   BoxDecoration(
 
-                                    },
-                                    child: Stack(
-                                      alignment: AlignmentDirectional.center,
-                                      children: [
-                                        customCircleAvatar(62,color:Colors.white),
-
-                                        CircleAvatar(
-                                          radius: 64,
-                                          backgroundColor:
-                                          Theme.of(context).scaffoldBackgroundColor,
-                                          child: CircleAvatar(
-                                            radius: 60,
-                                            backgroundImage: controller.profileImage == null
-                                                ? NetworkImage('${doctorAccountModel?.image}')
-                                                : FileImage(controller.profileImage!) as ImageProvider,
-                                          ),
-                                        ),
-                                      ],
+                                      image: DecorationImage(image: controller.coverImage == null
+                                          ? NetworkImage('${doctorAccountModel?.cover}')
+                                          : FileImage(controller.coverImage!) as ImageProvider,
+                                          fit: BoxFit.cover),
                                     ),
                                   ),
-
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: customCircleAvatar(18,color:Colors.blue,widget: const Icon(IconBroken.Camera),onTap: (){
+                                      controller.getCoverImage(name.text,phone.text,bio.text);
+                                    }),
+                                  ),
 
                                 ],
-                              ),500
+                              ),0
                           ),
-                        )
-                      ],
-                    ),
-                    CustomSizeBox( 80,),
+                          Positioned(
+                            top: 130,
+                            child: CustomAnimation(
+                                Stack(
+                                  alignment: AlignmentDirectional.bottomEnd,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: (){
+                                        controller.getProfileImage(name.text,phone.text,bio.text);
 
-                    Column(
-                      children: [
-                        CustomAnimation(
-                          CustomTextForm(
-                              name, "Enter your name".tr,TextInputType.name, validator: (name){
-                            if(name!.isEmpty){
-                              return "name mustn't be empty".tr;
+                                      },
+                                      child: Stack(
+                                        alignment: AlignmentDirectional.center,
+                                        children: [
+                                          customCircleAvatar(62,color:Colors.white),
 
-                            }
-                          }),1000,
-                        ),
-                        CustomSizeBox(10),
-                        CustomAnimation(
-                          CustomTextForm(
-                              bio, "Enter your bio".tr,TextInputType.text, validator: (bio){
-                            if(bio!.isEmpty){
-                              return "bio mustn't be empty".tr;
+                                          CircleAvatar(
+                                            radius: 64,
+                                            backgroundColor:
+                                            Theme.of(context).scaffoldBackgroundColor,
+                                            child: CircleAvatar(
+                                              radius: 60,
+                                              backgroundImage: controller.profileImage == null
+                                                  ? NetworkImage('${doctorAccountModel?.image}')
+                                                  : FileImage(controller.profileImage!) as ImageProvider,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
 
-                            }
-                          }),1500,
-                        ),
-                        CustomSizeBox(10),
 
-                        CustomAnimation(
-                          CustomTextForm(
-                              phone, "Enter your phoneNumber".tr,TextInputType.phone, validator: (phone){
-                            if(phone!.isEmpty){
-                              return "phoneNumber mustn't be empty".tr;
+                                  ],
+                                ),500
+                            ),
+                          )
+                        ],
+                      ),
+                      CustomSizeBox( 80,),
 
-                            }
-                          }),2000,
-                        ),
+                      Column(
+                        children: [
+                          CustomAnimation(
+                            CustomTextForm(
+                                name, "Enter your name".tr,TextInputType.name, validator: (name){
+                              if(name!.isEmpty){
+                                return "name mustn't be empty".tr;
 
-                      ],
-                    ),
+                              }
+                            }),1000,
+                          ),
+                          CustomSizeBox(10),
+                          CustomAnimation(
+                            CustomTextForm(
+                                bio, "Enter your bio".tr,TextInputType.text, validator: (bio){
+                              if(bio!.isEmpty){
+                                return "bio mustn't be empty".tr;
 
-                  ],
+                              }
+                            }),1500,
+                          ),
+                          CustomSizeBox(10),
 
+                          CustomAnimation(
+                            CustomTextForm(
+                                phone, "Enter your phoneNumber".tr,TextInputType.phone, validator: (phone){
+                              if(phone!.isEmpty){
+                                return "phoneNumber mustn't be empty".tr;
+
+                              }
+                            }),2000,
+                          ),
+
+                        ],
+                      ),
+
+                    ],
+
+                  ),
                 ),
               ),
             )

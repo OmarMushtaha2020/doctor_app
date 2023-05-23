@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class GroupChatPatientsView extends GetView<GroupChatPatientsController> {
   var argument=Get.arguments;
   var messageController=TextEditingController();
   LoginController loginController=LoginController();
+  LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppController();
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -32,7 +34,7 @@ class GroupChatPatientsView extends GetView<GroupChatPatientsController> {
                     GestureDetector(onTap: (){
 // controller.changeValueOfChatPatients(true);
                       loginController.moveBetweenPages('LayoutPatientsAppView');
-                    },child: Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
+                    },child: layoutPatientsAppController.initLang==const Locale("ar")?const Icon(IconBroken.Arrow___Right_2,color: Colors.black,): const Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
                     CustomSizeBox(0,width: 20,),
                     customCircleAvatar(25,color: Colors.white,
                         image:"${argument['cover']}")
@@ -45,7 +47,7 @@ class GroupChatPatientsView extends GetView<GroupChatPatientsController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    controller.messages.length==0? Center(child: Text("Never communicated before")):  Expanded(
+                    controller.messages.length==0? const Center(child: Text("Never communicated before")):  Expanded(
                       child: ListView.separated(
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
@@ -94,7 +96,7 @@ class GroupChatPatientsView extends GetView<GroupChatPatientsController> {
                           controller.sendMessage(
                             receiverId: argument['token'],
 
-                            dateTime: DateTime.now().toString(),
+                            dateTime: FieldValue.serverTimestamp(),
                             text: messageController.text,
 
                           );

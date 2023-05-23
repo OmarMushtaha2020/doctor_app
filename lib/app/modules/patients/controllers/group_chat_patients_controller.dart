@@ -79,6 +79,7 @@ class GroupChatPatientsController extends GetxController {
   void getMessages({
     required String receiverId,
   }) {
+
     FirebaseFirestore.instance
         .collection('patients')
         .doc(tokenOfPatients).collection("doctors").doc("$receiverId")
@@ -87,11 +88,13 @@ class GroupChatPatientsController extends GetxController {
         .snapshots()
         .listen((event) {
       messages = [];
+
       event.docs.forEach((element) {
         messages.add(MessageModel.fromJson(element.data()));
         update();
       });
 
     });
+  update();
   }
 }

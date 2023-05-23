@@ -27,6 +27,7 @@ class LayoutView extends GetView<LayoutController> {
 
             currentIndex:index ,
             onTap: (index){
+              print(index);
               controller.changeValueOfIndex(index);
             },
             items:  [
