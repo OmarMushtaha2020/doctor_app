@@ -22,67 +22,70 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
       init: ArticleDetailsPatientsController(),
       builder: (controller){
         return  Scaffold(
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-
-                    Image(image:NetworkImage("${argument['image']}"),height: 400,width: double.infinity,fit: BoxFit.cover,),
-                    layoutPatientsAppController.initLang==Locale("ar")?
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20,top: 60),
-                      child: GestureDetector(
-                        onTap: (){
-
-                          login.moveBetweenPages('ArticleView',arguments: {
-                            'id':argument['id'],
-                            'nameCategories':argument['nameCategories'],
-                          });
-
-                        },
-                        child: Container(child: Icon(IconBroken.Arrow___Right_2),width: 50,height: 50,decoration: BoxDecoration(
-                          color: Colors.white,
-
-                          borderRadius: BorderRadius.circular(10),
-                        ),),
-                      ),
-                    ):  Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 60),
-                      child: GestureDetector(
-                        onTap: (){
-
-                          login.moveBetweenPages('ArticleView',arguments: {
-                            'id':argument['id'],
-                            'nameCategories':argument['nameCategories'],
-                          });
-
-                        },
-                        child: Container(child: Icon(IconBroken.Arrow___Left_2),width: 50,height: 50,decoration: BoxDecoration(
-                          color: Colors.white,
-
-                          borderRadius: BorderRadius.circular(10),
-                        ),),
-                      ),
-                    ),
-
-                  ],
-                ),
-                CustomSizeBox(20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
                     children: [
-                      CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Name/ ${argument['name']}"),0),
-                      CustomSizeBox(20),
 
-                      CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Details : \n${argument['details']}"),0),
+                      Image(image:NetworkImage("${argument['image']}"),height: 400,width: double.infinity,fit: BoxFit.cover,),
+                      layoutPatientsAppController.initLang==Locale("ar")?
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20,top: 60),
+                        child: GestureDetector(
+                          onTap: (){
+
+                            login.moveBetweenPages('ArticleView',arguments: {
+                              'id':argument['id'],
+                              'nameCategories':argument['nameCategories'],
+                            });
+
+                          },
+                          child: Container(child: Icon(IconBroken.Arrow___Right_2),width: 50,height: 50,decoration: BoxDecoration(
+                            color: Colors.white,
+
+                            borderRadius: BorderRadius.circular(10),
+                          ),),
+                        ),
+                      ):  Padding(
+                        padding: const EdgeInsets.only(left: 20,top: 60),
+                        child: GestureDetector(
+                          onTap: (){
+
+                            login.moveBetweenPages('ArticleView',arguments: {
+                              'id':argument['id'],
+                              'nameCategories':argument['nameCategories'],
+                            });
+
+                          },
+                          child: Container(child: Icon(IconBroken.Arrow___Left_2),width: 50,height: 50,decoration: BoxDecoration(
+                            color: Colors.white,
+
+                            borderRadius: BorderRadius.circular(10),
+                          ),),
+                        ),
+                      ),
 
                     ],
                   ),
-                ),
+                  CustomSizeBox(20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Name/ ${argument['name']}"),0),
+                        CustomSizeBox(20),
 
-              ],
+                        CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Details : \n${argument['details']}"),0),
+
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
             )
         );
       },

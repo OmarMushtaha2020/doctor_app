@@ -28,7 +28,7 @@ class PatientsView extends GetView<PatientsController> {
             key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:CrossAxisAlignment.start,
               children: [
                 CustomAnimation(
                     Row(

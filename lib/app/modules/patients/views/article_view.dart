@@ -69,7 +69,7 @@ controller.getAllArticle("${argument['id']}");
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: layoutPatientsAppController.initLang==Locale("ar")?EdgeInsets.only(right: 10): EdgeInsets.only(left: 10),
                     child: Container(height: 85,width: 85,decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),color: Colors.white,
                       image:  DecorationImage(image: NetworkImage("${controller.article[index].image}"),fit: BoxFit.cover),

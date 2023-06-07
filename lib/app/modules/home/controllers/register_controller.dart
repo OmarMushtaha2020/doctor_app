@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,12 +12,9 @@ import 'package:doctor_app/app/modules/home/controllers/create_password_controll
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
 
 PatientsAccountModel? patientsAccountModel;
-dynamic tokenOfDoctors='';
+dynamic tokenOfDoctors = '';
 
 class RegisterController extends GetxController {
-
-
-
   @override
   void onInit() {
     super.onInit();
@@ -34,9 +30,9 @@ class RegisterController extends GetxController {
     super.onClose();
   }
 
-
-  Future<void> register(dynamic email, dynamic password, dynamic name, dynamic phone) async {
-    var text= await MyEncryptionDecryption.encryptAES("$password");
+  Future<void> register(
+      dynamic email, dynamic password, dynamic name, dynamic phone) async {
+    var text = await MyEncryptionDecryption.encryptAES("$password");
     print(" the ex is${text.base64}");
 
     FirebaseAuth.instance
@@ -44,31 +40,36 @@ class RegisterController extends GetxController {
         .then((value) {
       GetStorage().write('token', value.user?.uid);
 
-      createAccount(name,email,phone,value.user?.uid,text.base64);
-    })
-        .catchError((error) {
+      createAccount(name, email, phone, value.user?.uid, text.base64);
+    }).catchError((error) {
       print(error.toString());
     });
     update();
-
   }
 
-  void createAccount(name, email, phone, uid,password) {
-    doctorAccountModel = DoctorAccountModel(name, email, phone, uid,password,"write your bio","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2","https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  void createAccount(name, email, phone, uid, password) {
+    doctorAccountModel = DoctorAccountModel(
+        name,
+        email,
+        phone,
+        uid,
+        password,
+        "write your bio",
+        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
     FirebaseFirestore.instance
         .collection('doctors')
         .doc(uid)
-        .set(doctorAccountModel?.toMAp()??{})
+        .set(doctorAccountModel?.toMAp() ?? {})
         .then((value) {
-      tokenOfDoctors=doctorAccountModel?.token;
-          update();
+      tokenOfDoctors = doctorAccountModel?.token;
+      update();
       LoginController loginController = Get.put(LoginController());
 
       loginController.moveBetweenPages('layout');
     }).catchError((error) {
       print(error.toString());
     });
-  update();
+    update();
   }
-
 }

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:doctor_app/app/modules/home/controllers/register_controller.dart';
+
 class LoginController extends GetxController {
   //TODO: Implement HomeController
 
@@ -25,13 +26,12 @@ class LoginController extends GetxController {
 
   void increment() => count.value++;
 
-  void moveBetweenPages(route,{arguments}) {
-    Get.offNamed(route,arguments: arguments);
+  void moveBetweenPages(route, {arguments}) {
+    Get.offNamed(route, arguments: arguments);
   }
 
   void login(dynamic email, dynamic password) {
     checkIsEmailInDoctorsCollection(email, password);
-
 
     update();
   }
@@ -39,13 +39,16 @@ class LoginController extends GetxController {
   void checkIsEmailInDoctorsCollection(dynamic email, dynamic password) {
     FirebaseFirestore.instance
         .collection('doctors')
-        .where('email', isEqualTo: email).get().then((value) {
+        .where('email', isEqualTo: email)
+        .get()
+        .then((value) {
       if (value.docs.length != 0) {
-        FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: email, password: password).then((value) {
+        FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((value) {
           GetStorage().write('token', value.user?.uid);
 
-          tokenOfDoctors=value.user!.uid;
+          tokenOfDoctors = value.user!.uid;
           update();
           moveBetweenPages('layout');
         }).catchError((error) {
@@ -54,8 +57,7 @@ class LoginController extends GetxController {
       } else {
         print("The email isn't in doctors ");
       }
-    }
-    );
+    });
     update();
   }
 }

@@ -3,21 +3,21 @@ class MessageModel {
   late String receiverId;
   late var dateTime;
   late String text;
-bool ?value;
-  MessageModel({
-    required this.senderId,
-    required this.receiverId,
-    required this.dateTime,
-    required this.text,
-    required this.value
-  });
+  bool? value;
+
+  MessageModel(
+      {required this.senderId,
+      required this.receiverId,
+      required this.dateTime,
+      required this.text,
+      required this.value});
 
   MessageModel.fromJson(Map<String, dynamic> json) {
     senderId = json['senderId'];
     receiverId = json['receiverId'];
     dateTime = json['dateTime'];
     text = json['text'];
-    value=json['value'];
+    value = json['value'];
   }
 
   Map<String, dynamic> toMap() {
@@ -26,7 +26,7 @@ bool ?value;
       'receiverId': receiverId,
       'dateTime': dateTime,
       'text': text,
-      'value':value,
+      'value': value,
     };
   }
 }

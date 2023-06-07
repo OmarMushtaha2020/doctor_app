@@ -4,6 +4,7 @@ class ArticleDetailsController extends GetxController {
   //TODO: Implement ArticleDetailsController
 
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();

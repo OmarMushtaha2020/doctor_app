@@ -86,13 +86,21 @@ print("my id is$id");
     });
     update();
   }
-Locale? initLang=GetStorage().read("lang")==null?Locale("${Get.deviceLocale}"): Locale(GetStorage().read("lang"));
+Locale? initLang=GetStorage().read("lang")==null?Locale("${Get.deviceLocale!.languageCode}"): Locale("${GetStorage().read("lang")}");
+changeValueOfLang(){
+  initLang= Locale("${GetStorage().read("lang")}");
+  update();
+  print("The initLang of update is${initLang}");
+
+}
   void changeLang(String code){
     Locale locale=Locale('$code');
-    GetStorage().write("lang", code);
+    GetStorage().write("lang","$code");
     update();
-    print(initLang);
-    Get.updateLocale(locale);
+    Get.updateLocale(locale).then((value) {
+      changeValueOfLang();
+update();
+    });
     update();
   }
 

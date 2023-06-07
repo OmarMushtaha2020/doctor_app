@@ -14,206 +14,224 @@ import 'package:doctor_app/common_widget/custom_text.dart';
 import 'package:doctor_app/shared/styles/icon_broken.dart';
 
 class GroupChatView extends GetView<GroupChatController> {
-   GroupChatView({Key? key}) : super(key: key);
-  var messageController=TextEditingController();
-  LoginController loginController=LoginController();
-  LayoutController layoutController =LayoutController();
-  LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppController();
-  var argument=Get.arguments;
+  GroupChatView({Key? key}) : super(key: key);
+  var messageController = TextEditingController();
+  LoginController loginController = LoginController();
+  LayoutController layoutController = LayoutController();
+  LayoutPatientsAppController layoutPatientsAppController =
+      LayoutPatientsAppController();
+  var argument = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
-
-    return Builder(
-        builder: (context) {
-          return     GetBuilder<GroupChatController>(
-            init:GroupChatController() ,
-            builder: (controller){
-              controller.getMessages(receiverId: argument['token']);
-              return  Scaffold(
-                  appBar: AppBar(
-                    title: Row(
-                      children: [
-                        GestureDetector(onTap: (){
-controller.changeValueOfIndex(1);
-
-
-                        },child:layoutPatientsAppController.initLang==Locale("ar")?Icon(IconBroken.Arrow___Right_2,color: Colors.black,): Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
-                        CustomSizeBox(0,width: 20,),
-
-                        customCircleAvatar(25,color: Colors.white,                        image:"${argument['cover']}")
-                        ,CustomSizeBox(0,width: 10,),CustomText(Colors.black, 20, FontWeight.w600, argument['name'])
-                      ],
+    return Builder(builder: (context) {
+      return GetBuilder<GroupChatController>(
+        init: GroupChatController(),
+        builder: (controller) {
+          controller.getMessages(receiverId: argument['token']);
+          return Scaffold(
+              appBar: AppBar(
+                title: Row(
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          controller.changeValueOfIndex(1);
+                        },
+                        child: layoutPatientsAppController.initLang
+                                .toString()
+                                .contains("ar")
+                            ? Icon(
+                                IconBroken.Arrow___Left_2,
+                                color: Colors.black,
+                              )
+                            : Icon(
+                                IconBroken.Arrow___Right_2,
+                                color: Colors.black,
+                              )),
+                    CustomSizeBox(
+                      0,
+                      width: 20,
                     ),
-                  ),
-                  body:Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        controller.messages.length==0?Center(child: const Text("Never communicated before")):  Expanded(
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (BuildContext context, int index) {
-                              var message =controller.messages[index];
-                              if (tokenOfDoctors == message.senderId) {
-                                return buildMyMessage(message);
-                              }
-
-                              return buildMessage(message);
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) => const SizedBox(
-                              height: 15,
-                            ),
-                            itemCount: controller.messages.length,
-                          ),
-                        ),
-
-                      ],
+                    customCircleAvatar(25,
+                        color: Colors.white, image: "${argument['cover']}"),
+                    CustomSizeBox(
+                      0,
+                      width: 10,
                     ),
-                  ),
-                  bottomNavigationBar:                         Padding(
-              padding: const EdgeInsets.only(bottom: 20.0,left: 15,right: 15),
-              child: Container(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              height: 50,
-              padding: const EdgeInsetsDirectional.only(
-              start: 15,
-              end: 0,
+                    CustomText(
+                        Colors.black, 20, FontWeight.w600, argument['name'])
+                  ],
+                ),
               ),
-              decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
+              body: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    controller.messages.length == 0
+                        ? Center(child: const Text("Never communicated before"))
+                        : Expanded(
+                            child: ListView.separated(
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                var message = controller.messages[index];
+                                if (tokenOfDoctors == message.senderId) {
+                                  return buildMyMessage(message);
+                                }
+
+                                return buildMessage(message);
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const SizedBox(
+                                height: 15,
+                              ),
+                              itemCount: controller.messages.length,
+                            ),
+                          ),
+                  ],
+                ),
+              ),
+              bottomNavigationBar: Padding(
+                padding:
+                    const EdgeInsets.only(bottom: 20.0, left: 15, right: 15),
+                child: Container(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  height: 50,
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 15,
+                    end: 0,
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Colors.grey,
+                      )),
+                  child: TextFormField(
+                    maxLines: 999,
+                    controller: messageController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Aa',
+                      suffixIcon: MaterialButton(
+                        height: 10,
+                        padding: EdgeInsets.zero,
+                        onPressed: () async {
+                          controller.sendMessage(
+                            receiverId: argument['token'],
+                            dateTime: FieldValue.serverTimestamp(),
+                            text: messageController.text,
+                          );
+                        },
+                        color: Colors.blue,
+                        elevation: 10,
+                        minWidth: 1,
+                        child: const Icon(
+                          IconBroken.Send,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ));
+        },
+      );
+    });
+  }
+}
+
+Widget buildMessage(MessageModel model) => Align(
+      alignment: AlignmentDirectional.centerStart,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: const BorderRadiusDirectional.only(
+            bottomEnd: Radius.circular(
+              10.0,
+            ),
+            topStart: Radius.circular(
+              10.0,
+            ),
+            topEnd: Radius.circular(
+              10.0,
+            ),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(
+          vertical: 5,
+          horizontal: 10,
+        ),
+        child: Text(model.text),
+      ),
+    );
+
+Widget buildMyMessage(MessageModel model) => Align(
+      alignment: AlignmentDirectional.centerEnd,
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadiusDirectional.only(
+            bottomStart: Radius.circular(
+              10.0,
+            ),
+            topStart: Radius.circular(
+              10.0,
+            ),
+            topEnd: Radius.circular(
+              10.0,
+            ),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(
+          vertical: 5.0,
+          horizontal: 10.0,
+        ),
+        child: Text(
+          model.text,
+        ),
+      ),
+    );
+
+Widget buildTextFormMessage() => Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Container(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        height: 50,
+        padding: const EdgeInsetsDirectional.only(
+          start: 15,
+          end: 0,
+        ),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
               color: Colors.grey,
-              )),
-              child: TextFormField(
-              maxLines: 999,
-              controller: messageController,
-              decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Aa',
-              suffixIcon: MaterialButton(
+            )),
+        child: TextFormField(
+          maxLines: 999,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Aa',
+            suffixIcon: MaterialButton(
               height: 10,
               padding: EdgeInsets.zero,
               onPressed: () async {
-              controller.sendMessage(
-              receiverId: argument['token'],
-
-              dateTime: FieldValue.serverTimestamp(),
-              text: messageController.text,
-
-              );
+                // c.sendMessage(
+                //   receiverId: userModel.uId,
+                //   dateTime: DateTime.now().toString(),
+                //   text: messageController.text,
+                // );
               },
               color: Colors.blue,
               elevation: 10,
               minWidth: 1,
               child: const Icon(
-              IconBroken.Send,
-              color: Colors.white,
+                IconBroken.Send,
+                color: Colors.white,
               ),
-              ),
-              ),
-              ),
-              ),
-              )
-
-              );
-            },
-          );
-        }
-
+            ),
+          ),
+        ),
+      ),
     );
-  }
-}
-Widget buildMessage( MessageModel model ) => Align(
-  alignment: AlignmentDirectional.centerStart,
-  child: Container(
-    decoration: BoxDecoration(
-      color: Colors.grey[300],
-      borderRadius: const BorderRadiusDirectional.only(
-        bottomEnd: Radius.circular(
-          10.0,
-        ),
-        topStart: Radius.circular(
-          10.0,
-        ),
-        topEnd: Radius.circular(
-          10.0,
-        ),
-      ),
-    ),
-    padding: const EdgeInsets.symmetric(
-      vertical: 5,
-      horizontal: 10,
-    ),
-    child:  Text(model.text),
-  ),
-);
-
-Widget buildMyMessage(MessageModel model ) => Align(
-  alignment: AlignmentDirectional.centerEnd,
-  child: Container(
-    decoration: const BoxDecoration(
-      color:Colors.blue,
-      borderRadius: BorderRadiusDirectional.only(
-        bottomStart: Radius.circular(
-          10.0,
-        ),
-        topStart: Radius.circular(
-          10.0,
-        ),
-        topEnd: Radius.circular(
-          10.0,
-        ),
-      ),
-    ),
-    padding: const EdgeInsets.symmetric(
-      vertical: 5.0,
-      horizontal: 10.0,
-    ),
-    child:  Text(
-      model.text,
-    ),
-  ),
-);
-Widget buildTextFormMessage()=>            Padding(
-padding: const EdgeInsets.only(top: 10.0),
-child: Container(
-clipBehavior: Clip.antiAliasWithSaveLayer,
-height: 50,
-padding: const EdgeInsetsDirectional.only(
-start: 15,
-end: 0,
-),
-decoration: BoxDecoration(
-borderRadius: BorderRadius.circular(12),
-border: Border.all(
-color: Colors.grey,
-)),
-child: TextFormField(
-maxLines: 999,
-decoration: InputDecoration(
-border: InputBorder.none,
-hintText: 'Aa',
-suffixIcon: MaterialButton(
-height: 10,
-padding: EdgeInsets.zero,
-onPressed: () async {
-  // c.sendMessage(
-  //   receiverId: userModel.uId,
-  //   dateTime: DateTime.now().toString(),
-  //   text: messageController.text,
-  // );
-},
-color: Colors.blue,
-elevation: 10,
-minWidth: 1,
-child: const Icon(
-IconBroken.Send,
-color: Colors.white,
-),
-),
-),
-),
-),
-);

@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,13 +11,16 @@ import 'package:doctor_app/app/modules/home/views/layout/layout_view.dart';
 
 class AddArticleController extends GetxController {
   //TODO: Implement AddArticleController
-  bool bottomSheet=false;
-  void changeValueOfBottomSheet(bool value){
-    bottomSheet=value;
+  bool bottomSheet = false;
+
+  void changeValueOfBottomSheet(bool value) {
+    bottomSheet = value;
 
     update();
   }
+
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -33,8 +35,9 @@ class AddArticleController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
   Future<void> changeValueOfHome(value) async {
-    valueOfHome=value;
+    valueOfHome = value;
     print('valueOfHome is $valueOfHome');
     update();
   }
@@ -56,7 +59,9 @@ class AddArticleController extends GetxController {
       print('No image selected.');
     }
   }
+
   String? valueOfImage;
+
   void uploadImage() {
     firebase_storage.FirebaseStorage.instance
         .ref()
@@ -64,54 +69,71 @@ class AddArticleController extends GetxController {
         .putFile(imageArticle!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        valueOfImage=value;
+        valueOfImage = value;
         print("the value is $valueOfImage");
         update();
-      }
-      ).catchError((error) {
-      });
+      }).catchError((error) {});
       update();
-    }).catchError((error) {
-    });
+    }).catchError((error) {});
   }
+
   ArticleModel? articleModel;
-  List<ArticleModel>article=[];
+  List<ArticleModel> article = [];
+
   Future<void> getAllArticle(idOfCategories) async {
-    article=[];
-    FirebaseFirestore.instance.collection("Categories").doc("$idOfCategories").collection("Article").get().then((value) {
+    article = [];
+    FirebaseFirestore.instance
+        .collection("Categories")
+        .doc("$idOfCategories")
+        .collection("Article")
+        .get()
+        .then((value) {
       value.docs.forEach((element) {
         article.add(ArticleModel.fromJson(element.data()));
         update();
       });
       update();
     });
-update();
+    update();
   }
-  Future<void> addArticle(nameArticle,detailsArticle,imageArticle,idOfCategories) async {
-      articleModel =ArticleModel(nameArticle,detailsArticle,imageArticle,idOfCategories,tokenOfDoctors);
-      Future.delayed(Duration(milliseconds: 1000)).then((value){
-        FirebaseFirestore.instance.collection("Categories").doc("$idOfCategories").collection("Article").add(articleModel?.toMap()??{}).then((value){
-          articleModel=ArticleModel(nameArticle,detailsArticle,imageArticle,idOfCategories,tokenOfDoctors,idOfArticle: value.id);
-          update();
-          FirebaseFirestore.instance.collection("Categories").doc("$idOfCategories").collection("Article").doc(value.id).update(articleModel?.toMap()??{}).then((value){
-            getAllArticle(idOfCategories);
-            changeValueOfBottomSheet(false);
-update();
-          });
 
+  Future<void> addArticle(
+      nameArticle, detailsArticle, imageArticle, idOfCategories) async {
+    articleModel = ArticleModel(nameArticle, detailsArticle, imageArticle,
+        idOfCategories, tokenOfDoctors);
+    Future.delayed(Duration(milliseconds: 1000)).then((value) {
+      FirebaseFirestore.instance
+          .collection("Categories")
+          .doc("$idOfCategories")
+          .collection("Article")
+          .add(articleModel?.toMap() ?? {})
+          .then((value) {
+        articleModel = ArticleModel(nameArticle, detailsArticle, imageArticle,
+            idOfCategories, tokenOfDoctors,
+            idOfArticle: value.id);
+        update();
+        FirebaseFirestore.instance
+            .collection("Categories")
+            .doc("$idOfCategories")
+            .collection("Article")
+            .doc(value.id)
+            .update(articleModel?.toMap() ?? {})
+            .then((value) {
+          getAllArticle(idOfCategories);
+          changeValueOfBottomSheet(false);
           update();
-        }).catchError((error){
-
         });
+
+        update();
+      }).catchError((error) {});
       update();
-          });
-
-
+    });
 
     update();
   }
-void changeValueOfBottomSheetOfArticle(value){
-    bottomSheetOfArticle=value;
+
+  void changeValueOfBottomSheetOfArticle(value) {
+    bottomSheetOfArticle = value;
     update();
-}
+  }
 }

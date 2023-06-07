@@ -14,6 +14,7 @@ class UpdateArticleController extends GetxController {
   //TODO: Implement UpdateArticleController
 
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -36,7 +37,7 @@ class UpdateArticleController extends GetxController {
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,
     );
-update();
+    update();
     if (pickedFile != null) {
       imageArticle = File(pickedFile.path);
       print(imageArticle!.path);
@@ -46,41 +47,50 @@ update();
       print('No image selected.');
     }
   }
-  String valueOfImage='';
+
+  String valueOfImage = '';
+
   void uploadImage() {
     firebase_storage.FirebaseStorage.instance
         .ref()
-        .child('updateArticle/${Uri.file(imageArticle!.path).pathSegments.last}')
+        .child(
+            'updateArticle/${Uri.file(imageArticle!.path).pathSegments.last}')
         .putFile(imageArticle!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         update();
 
-        valueOfImage=value;
+        valueOfImage = value;
         update();
 
         update();
         print("the value is $valueOfImage");
         update();
-      }
-      ).catchError((error) {
-      });
-    }).catchError((error) {
-    });
+      }).catchError((error) {});
+    }).catchError((error) {});
   }
+
   ArticleModel? articleModel;
-LoginController loginController=LoginController();
-  Future<void> updateArticle(nameArticle,detailsArticle,imageArticle,idOfCategories,idOfArticle) async {
-    articleModel =ArticleModel(nameArticle,detailsArticle,imageArticle,idOfCategories,tokenOfDoctors,idOfArticle: idOfArticle);
+  LoginController loginController = LoginController();
 
-      FirebaseFirestore.instance.collection("Categories").doc(idOfCategories)
-          .collection("Article").doc(idOfArticle)
-          .update(articleModel?.toMap()??{}).then((value){
-            valueOfImage='';
+  Future<void> updateArticle(nameArticle, detailsArticle, imageArticle,
+      idOfCategories, idOfArticle) async {
+    articleModel = ArticleModel(nameArticle, detailsArticle, imageArticle,
+        idOfCategories, tokenOfDoctors,
+        idOfArticle: idOfArticle);
 
-            update();
-      });
+    FirebaseFirestore.instance
+        .collection("Categories")
+        .doc(idOfCategories)
+        .collection("Article")
+        .doc(idOfArticle)
+        .update(articleModel?.toMap() ?? {})
+        .then((value) {
+      valueOfImage = '';
+
+      update();
+    });
 
     update();
   }
-  }
+}

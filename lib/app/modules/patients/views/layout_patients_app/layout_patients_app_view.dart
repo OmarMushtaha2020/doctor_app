@@ -24,15 +24,15 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
         return Scaffold(
           appBar:               AppBar(actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.all(8.0),
               child: IconButton(onPressed: (){
                 loginController.moveBetweenPages('SearchView');
               }, icon: const Icon(IconBroken.Search,color: Colors.black,)),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.all(8.0),
               child: GestureDetector(onTap: (){
-                Get.defaultDialog(    title: '',content:Container(height: 120,child: Column(
+                Get.defaultDialog(    title: '',content:SizedBox(height: 120,child: Column(
                   children: [
                     GestureDetector(
                       onTap:(){
@@ -40,10 +40,10 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child:   Container(child:  const Center(child: Text("English",style: TextStyle(color: Colors.white,fontSize: 20))),height: 50,width: double.infinity,decoration: BoxDecoration(
+                        child:   Container(height: 50,width: double.infinity,decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.blue,
-                        ),),
+                        ),child:  const Center(child: Text("English",style: TextStyle(color: Colors.white,fontSize: 20))),),
                       ),
                     ),
                     CustomSizeBox(10),
@@ -55,11 +55,11 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child:   Container(child: const Center(child: Text("Arbic",style: TextStyle(color: Colors.white,fontSize: 20),)),height: 50,width: double.infinity,decoration: BoxDecoration(
+                        child:   Container(height: 50,width: double.infinity,decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.blue,
 
-                        ),),
+                        ),child: const Center(child: Text("Arbic",style: TextStyle(color: Colors.white,fontSize: 20),)),),
                       ),
                     ),
 

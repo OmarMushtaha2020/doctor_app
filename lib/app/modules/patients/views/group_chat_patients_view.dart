@@ -89,6 +89,7 @@ class GroupChatPatientsView extends GetView<GroupChatPatientsController> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Aa',
+
                       suffixIcon: MaterialButton(
                         height: 10,
                         padding: EdgeInsets.zero,

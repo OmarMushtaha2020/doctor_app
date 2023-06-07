@@ -4,13 +4,15 @@ import 'package:doctor_app/app/data/message_model.dart';
 import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/register_controller.dart';
-bool valueOfChat=false;
+
+bool valueOfChat = false;
 
 class GroupChatController extends GetxController {
   //TODO: Implement GroupChatController
-  LoginController loginController=LoginController();
+  LoginController loginController = LoginController();
 
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -25,11 +27,13 @@ class GroupChatController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
   Future<void> changeValueOfChat(value) async {
-    valueOfChat=value;
+    valueOfChat = value;
     print('valueOfHome is $valueOfChat');
     update();
   }
+
   void sendMessage({
     required String receiverId,
     required var dateTime,
@@ -54,10 +58,8 @@ class GroupChatController extends GetxController {
         .add(model.toMap())
         .then((value) {
       getMessages(receiverId: receiverId);
-update();
-
-    }).catchError((error) {
-    });
+      update();
+    }).catchError((error) {});
 
     // set receiver chats
 
@@ -69,20 +71,18 @@ update();
         .collection('messages')
         .add(model.toMap())
         .then((value) {
-          getMessages(receiverId: receiverId);
-          update();
-
-    }).catchError((error) {
-    });
+      getMessages(receiverId: receiverId);
+      update();
+    }).catchError((error) {});
     update();
   }
 
   List<MessageModel> messages = [];
-LayoutController layoutController=LayoutController();
+  LayoutController layoutController = LayoutController();
+
   void getMessages({
     required String receiverId,
   }) {
-
     FirebaseFirestore.instance
         .collection('doctors')
         .doc(tokenOfDoctors)
@@ -99,20 +99,17 @@ LayoutController layoutController=LayoutController();
 
         update();
       });
-
     });
     update();
   }
+
   Future<void> changeValueOfIndex(values) async {
-changeValueOfChat(true).then((value) {
-  index=values;
-  loginController.moveBetweenPages('layout');
-  update();
-
-});
-
-
+    changeValueOfChat(true).then((value) {
+      index = values;
+      loginController.moveBetweenPages('layout');
+      update();
+    });
 
     update();
-}
+  }
 }

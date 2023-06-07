@@ -54,7 +54,7 @@ class SubscriptionsView extends GetView<LayoutPatientsAppController> {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.all(8.0),
                             child: Container(height: 85,width: 85,decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),color: Colors.white,
                               image:  DecorationImage(image: NetworkImage("${controller.subsriptions[index].imageCategories}"),fit: BoxFit.cover),
@@ -75,8 +75,7 @@ class SubscriptionsView extends GetView<LayoutPatientsAppController> {
                           ),
                           const Spacer(),
                           Padding(
-
-                            padding: const EdgeInsets.only(right:10 ),
+                            padding: const EdgeInsets.all(8.0),
                             child: customCircleAvatar(
                                 20,
                                 color: controller.subsriptions[index].like==false?Colors.grey:Colors.blue,

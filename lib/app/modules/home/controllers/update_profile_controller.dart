@@ -13,7 +13,8 @@ class UpdateProfileController extends GetxController {
   //TODO: Implement UpdateProfileController
 
   final count = 0.obs;
-  LoginController loginController=LoginController();
+  LoginController loginController = LoginController();
+
   @override
   void onInit() {
     super.onInit();
@@ -37,39 +38,36 @@ class UpdateProfileController extends GetxController {
     String? image,
   }) {
     doctorAccountModel = DoctorAccountModel(
-       name,
-       doctorAccountModel!.email,
-
-          phone,
+      name,
+      doctorAccountModel!.email,
+      phone,
       doctorAccountModel?.token,
       doctorAccountModel?.password,
       bio,
-
-       image ?? doctorAccountModel!.image,
-         cover ?? doctorAccountModel!.cover,
-
-         );
-LayoutController layoutController =LayoutController();
+      image ?? doctorAccountModel!.image,
+      cover ?? doctorAccountModel!.cover,
+    );
+    LayoutController layoutController = LayoutController();
     FirebaseFirestore.instance
         .collection('doctors')
         .doc(doctorAccountModel!.token)
-        .update(doctorAccountModel?.toMAp()??{})
+        .update(doctorAccountModel?.toMAp() ?? {})
         .then((value) {
-index==2;
+      index == 2;
       update();
-      layoutController.getDoctorsData ().then((value) {
-  loginController.moveBetweenPages('layout');
-  update();
-
-});
-    }).catchError((error) {
-    });
+      layoutController.getDoctorsData().then((value) {
+        loginController.moveBetweenPages('layout');
+        update();
+      });
+    }).catchError((error) {});
     update();
   }
+
   File? coverImage;
   File? profileImage;
   String? valueOfImage;
-  String ?valueOfCover;
+  String? valueOfCover;
+
   void uploadProfileImage({
     required String name,
     required String phone,
@@ -82,21 +80,17 @@ index==2;
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         print(value);
-     valueOfImage=value;
-print(valueOfImage);
+        valueOfImage = value;
+        print(valueOfImage);
         update();
-      }
-      ).catchError((error) {
-      });
-    }).catchError((error) {
-    });
+      }).catchError((error) {});
+    }).catchError((error) {});
   }
 
   void uploadCoverImage({
     required String name,
     required String phone,
     required String bio,
-
   }) {
     firebase_storage.FirebaseStorage.instance
         .ref()
@@ -104,19 +98,18 @@ print(valueOfImage);
         .putFile(coverImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        valueOfCover=value;
+        valueOfCover = value;
         update();
         print(valueOfCover);
 
         update();
-      }).catchError((error) {
-      });
-    }).catchError((error) {
-    });
+      }).catchError((error) {});
+    }).catchError((error) {});
   }
+
   var picker = ImagePicker();
 
-  Future<void> getProfileImage(name,phone,bio) async {
+  Future<void> getProfileImage(name, phone, bio) async {
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,
     );
@@ -126,14 +119,13 @@ print(valueOfImage);
       uploadProfileImage(name: name, phone: phone, bio: bio);
       print(pickedFile.path);
 
-update();
+      update();
     } else {
       print('No image selected.');
     }
   }
 
-
-  Future<void> getCoverImage(name,phone,bio) async {
+  Future<void> getCoverImage(name, phone, bio) async {
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,
     );
@@ -141,7 +133,7 @@ update();
     if (pickedFile != null) {
       coverImage = File(pickedFile.path);
       uploadCoverImage(name: name, phone: phone, bio: bio);
-update();
+      update();
     } else {
       print('No image selected.');
     }

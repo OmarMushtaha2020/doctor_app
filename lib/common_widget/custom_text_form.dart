@@ -1,40 +1,53 @@
-
+import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
+
+LayoutPatientsAppController layoutPatientsAppController =
+    LayoutPatientsAppController();
 
 class CustomTextForm extends StatelessWidget {
   TextEditingController? controller;
-  String ?hintText;
+  String? hintText;
   IconData? preIcon;
   IconData? suffixIcon;
-  TextInputType?textInputType;
+  TextInputType? textInputType;
   FormFieldValidator<String>? validator;
   FormFieldValidator<String>? onChanged;
 
-  CustomTextForm(this.controller, this.hintText,this.textInputType, {this.preIcon,this.suffixIcon,this.validator,this.onChanged});
+  CustomTextForm(this.controller, this.hintText, this.textInputType,
+      {this.preIcon, this.suffixIcon, this.validator, this.onChanged});
+
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFfafafa),
-borderRadius: BorderRadius.circular(10)
-      ),
+          color: const Color(0xFFfafafa),
+          borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
-
+        // textAlign:
+        //     layoutPatientsAppController.initLang.toString().contains("ar")
+        //         ? TextAlign.end
+        //         : TextAlign.start,
         controller: controller,
-keyboardType:textInputType ,
-        validator:validator,
-onChanged: onChanged,
+        keyboardType: textInputType,
+        validator: validator,
+        onChanged: onChanged,
         decoration: InputDecoration(
-
           border: InputBorder.none,
-
-            contentPadding: const EdgeInsets.only(left: 15),
-            hintText: hintText,
-            hintStyle: const TextStyle(
-              color: Color(0xFFeb6b7bb)
-            ),
-            prefixIcon:this.preIcon!=null?  Icon(preIcon,color: const Color(0xFFeb6b7bb),):null,
-            suffixIcon:this.suffixIcon!=null?Icon(suffixIcon,color: const Color(0xFFeb6b7bb),):null,
+          contentPadding: const EdgeInsets.only(left: 15),
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Color(0xFFeb6b7bb)),
+          prefixIcon: this.preIcon != null
+              ? Icon(
+                  preIcon,
+                  color: const Color(0xFFeb6b7bb),
+                )
+              : null,
+          suffixIcon: this.suffixIcon != null
+              ? Icon(
+                  suffixIcon,
+                  color: const Color(0xFFeb6b7bb),
+                )
+              : null,
         ),
       ),
     );
