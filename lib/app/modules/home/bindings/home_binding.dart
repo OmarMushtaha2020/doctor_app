@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 import 'package:doctor_app/app/modules/home/controllers/add_article_controller.dart';
-import 'package:doctor_app/app/modules/home/controllers/article_details_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/create_password_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/forgot_password_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/group_chat_controller.dart';
@@ -17,9 +16,6 @@ class HomeBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<UpdateArticleController>(
       () => UpdateArticleController(),
-    );
-    Get.lazyPut<ArticleDetailsController>(
-      () => ArticleDetailsController(),
     );
     Get.lazyPut<AddArticleController>(
       () => AddArticleController(),

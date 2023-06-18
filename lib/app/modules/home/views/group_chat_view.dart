@@ -41,11 +41,11 @@ class GroupChatView extends GetView<GroupChatController> {
                                 .toString()
                                 .contains("ar")
                             ? Icon(
-                                IconBroken.Arrow___Left_2,
+                                IconBroken.Arrow___Right_2,
                                 color: Colors.black,
                               )
                             : Icon(
-                                IconBroken.Arrow___Right_2,
+                                IconBroken.Arrow___Left_2,
                                 color: Colors.black,
                               )),
                     CustomSizeBox(
@@ -90,52 +90,50 @@ class GroupChatView extends GetView<GroupChatController> {
                               itemCount: controller.messages.length,
                             ),
                           ),
-                  ],
-                ),
-              ),
-              bottomNavigationBar: Padding(
-                padding:
-                    const EdgeInsets.only(bottom: 20.0, left: 15, right: 15),
-                child: Container(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  height: 50,
-                  padding: const EdgeInsetsDirectional.only(
-                    start: 15,
-                    end: 0,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.grey,
-                      )),
-                  child: TextFormField(
-                    maxLines: 999,
-                    controller: messageController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Aa',
-                      suffixIcon: MaterialButton(
-                        height: 10,
-                        padding: EdgeInsets.zero,
-                        onPressed: () async {
-                          controller.sendMessage(
-                            receiverId: argument['token'],
-                            dateTime: FieldValue.serverTimestamp(),
-                            text: messageController.text,
-                          );
-                        },
-                        color: Colors.blue,
-                        elevation: 10,
-                        minWidth: 1,
-                        child: const Icon(
-                          IconBroken.Send,
-                          color: Colors.white,
+                 Spacer(),
+                    Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      height: 50,
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 15,
+                        end: 0,
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.grey,
+                          )),
+                      child: TextFormField(
+                        maxLines: 999,
+                        controller: messageController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Aa',
+                          suffixIcon: MaterialButton(
+                            height: 10,
+                            padding: EdgeInsets.zero,
+                            onPressed: () async {
+                              controller.sendMessage(
+                                receiverId: argument['token'],
+                                dateTime: FieldValue.serverTimestamp(),
+                                text: messageController.text,
+                              );
+                            },
+                            color: Colors.blue,
+                            elevation: 10,
+                            minWidth: 1,
+                            child: const Icon(
+                              Icons.send,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ));
+              ),
+          );
         },
       );
     });
@@ -194,44 +192,3 @@ Widget buildMyMessage(MessageModel model) => Align(
       ),
     );
 
-Widget buildTextFormMessage() => Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: Container(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        height: 50,
-        padding: const EdgeInsetsDirectional.only(
-          start: 15,
-          end: 0,
-        ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Colors.grey,
-            )),
-        child: TextFormField(
-          maxLines: 999,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Aa',
-            suffixIcon: MaterialButton(
-              height: 10,
-              padding: EdgeInsets.zero,
-              onPressed: () async {
-                // c.sendMessage(
-                //   receiverId: userModel.uId,
-                //   dateTime: DateTime.now().toString(),
-                //   text: messageController.text,
-                // );
-              },
-              color: Colors.blue,
-              elevation: 10,
-              minWidth: 1,
-              child: const Icon(
-                IconBroken.Send,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );

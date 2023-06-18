@@ -34,7 +34,6 @@ void main() async {
       print(tokenOfDoctors);
     } else {
       tokenValueDoctor = false;
-      // valueOfSelection=null;
     }
   }
   if (valueOfSelection == true) {
@@ -42,12 +41,9 @@ void main() async {
     if (tokenOfPatients != null) {
       tokenValuePatients = true;
       print(tokenOfDoctors);
-      //  var layoutPatientsAppController=Get.lazyPut(() => LayoutPatientsAppController());
-      // var categories= Get.find<LayoutPatientsAppController>();
-      //  categories.getAllCategories();
+
     } else {
       tokenValuePatients = false;
-      // valueOfSelection=null;
     }
   }
 

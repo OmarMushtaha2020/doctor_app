@@ -23,7 +23,7 @@ class ChatPatientsView extends GetView<LayoutPatientsAppController> {
             body:  controller.doctors.length==0? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SpinKitFadingCube(
+                const SpinKitFadingCube(
                   color: Colors.blue,
 
                   size: 50.0,
@@ -33,7 +33,7 @@ class ChatPatientsView extends GetView<LayoutPatientsAppController> {
               ],
             ):Padding(
               padding: const EdgeInsets.only(top:10 ,bottom: 10),
-              child: ListView.separated(padding: EdgeInsets.zero,physics: BouncingScrollPhysics(),itemBuilder: (context,index)=>Padding(
+              child: ListView.separated(padding: EdgeInsets.zero,physics: const BouncingScrollPhysics(),itemBuilder: (context,index)=>Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: GestureDetector(
                   onTap: (){
@@ -76,8 +76,8 @@ class ChatPatientsView extends GetView<LayoutPatientsAppController> {
                         CustomText(Colors.grey, 14, FontWeight.w400, "Pls take a look at the images."),
 
                       ],),
-                      Spacer(),
-                      CustomText(Color(0xff333333), 14, FontWeight.w400, "06:12")
+                      const Spacer(),
+                      CustomText(const Color(0xff333333), 14, FontWeight.w400, "06:12")
                     ],
                   ),
                 )

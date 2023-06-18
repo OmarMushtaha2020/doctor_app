@@ -1,15 +1,15 @@
+import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:doctor_app/app/modules/home/controllers/article_details_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
 import 'package:doctor_app/common_widget/custom_animation.dart';
 import 'package:doctor_app/common_widget/custom_size_box.dart';
 import 'package:doctor_app/common_widget/custom_text.dart';
 import 'package:doctor_app/shared/styles/icon_broken.dart';
 
-class ArticleDetailsView extends GetView<ArticleDetailsController> {
+class ArticleDetailsView extends GetView<LayoutController> {
   ArticleDetailsView({Key? key}) : super(key: key);
   LoginController login = LoginController();
   LayoutPatientsAppController layoutPatientsAppController =

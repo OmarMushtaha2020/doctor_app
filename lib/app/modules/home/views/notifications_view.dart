@@ -18,7 +18,7 @@ class NotificationsView extends GetView {
                 child: Container(
                   height: 100,
                   decoration: BoxDecoration(
-                    color: Color(0xFFfafafa),
+                    color: const Color(0xFFfafafa),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
@@ -26,15 +26,15 @@ class NotificationsView extends GetView {
                     child: Row(
                       children: [
                         Container(
-                          child: Icon(
-                            IconBroken.Notification,
-                            color: Colors.white,
-                          ),
                           height: 50,
                           width: 50,
                           decoration: BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            IconBroken.Notification,
+                            color: Colors.white,
                           ),
                         ),
                         CustomSizeBox(
@@ -51,8 +51,8 @@ class NotificationsView extends GetView {
                                 "Pls take a look at the images."),
                           ],
                         ),
-                        Spacer(),
-                        Icon(Icons.cancel_outlined)
+                        const Spacer(),
+                        const Icon(Icons.cancel_outlined)
                       ],
                     ),
                   ),

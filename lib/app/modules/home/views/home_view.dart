@@ -1,5 +1,4 @@
 import 'package:doctor_app/app/modules/home/controllers/register_controller.dart';
-import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -49,7 +48,6 @@ class HomeView extends GetView<LayoutController> {
                 : ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Stack(
-                          alignment: AlignmentDirectional.topEnd,
                           children: [
                             Padding(
                               padding:
@@ -129,10 +127,10 @@ class HomeView extends GetView<LayoutController> {
                             controller.categories[index].tokenOfDoctor ==
                                     tokenOfDoctors
                                 ? layoutPatientsAppController.initLang
-                                        .toString()
-                                        .contains("ar")
+                                .toString()
+                                .contains("ar")
                                     ? Positioned(
-                                        right: 10,
+                                        left: 10,
                                         top: 20,
                                         child: customCircleAvatar(20,
                                             widget: const Icon(
@@ -145,7 +143,7 @@ class HomeView extends GetView<LayoutController> {
                                         }),
                                       )
                                     : Positioned(
-                                        left: 10,
+                                        right: 10,
                                         top: 20,
                                         child: customCircleAvatar(20,
                                             widget: const Icon(

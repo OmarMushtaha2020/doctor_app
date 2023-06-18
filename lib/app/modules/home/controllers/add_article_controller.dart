@@ -10,7 +10,6 @@ import 'package:doctor_app/app/modules/home/views/add_article_view.dart';
 import 'package:doctor_app/app/modules/home/views/layout/layout_view.dart';
 
 class AddArticleController extends GetxController {
-  //TODO: Implement AddArticleController
   bool bottomSheet = false;
 
   void changeValueOfBottomSheet(bool value) {

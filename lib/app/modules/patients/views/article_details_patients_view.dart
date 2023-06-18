@@ -2,24 +2,21 @@ import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:doctor_app/app/modules/home/controllers/add_article_controller.dart';
-import 'package:doctor_app/app/modules/home/controllers/article_details_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
-import 'package:doctor_app/app/modules/patients/controllers/article_details_patients_controller.dart';
 import 'package:doctor_app/common_widget/custom_animation.dart';
 import 'package:doctor_app/common_widget/custom_size_box.dart';
 import 'package:doctor_app/common_widget/custom_text.dart';
 import 'package:doctor_app/shared/styles/icon_broken.dart';
 
-class ArticleDetailsPatientsView extends GetView<ArticleDetailsPatientsController> {
+class ArticleDetailsPatientsView extends GetView<LayoutPatientsAppController> {
   ArticleDetailsPatientsView({Key? key}) : super(key: key);
    LoginController login=LoginController();
 LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppController();
    var argument=Get.arguments;
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ArticleDetailsPatientsController>(
-      init: ArticleDetailsPatientsController(),
+    return GetBuilder<LayoutPatientsAppController>(
+      init: LayoutPatientsAppController(),
       builder: (controller){
         return  Scaffold(
             body: SingleChildScrollView(

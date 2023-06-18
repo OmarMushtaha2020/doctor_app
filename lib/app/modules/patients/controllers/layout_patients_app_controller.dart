@@ -136,35 +136,22 @@ update();
     indexPatients=value;
     if(indexPatients==0){
       getAllCategories();
-      // articleController.changeValueOfHomePatients(false);
-      // articleController.changeValueOfSubscriptionsPatients(false);
-      //
-      // groupChatPatientsController.changeValueOfChatPatients(false);
+
     }
     if(indexPatients==1){
     await  getAllAccountDoctors();
-    // articleController.changeValueOfHomePatients(false);
-    // articleController.changeValueOfSubscriptionsPatients(false);
-    //
-    // groupChatPatientsController.changeValueOfChatPatients(false);
+
       update();
 
     }
     if(indexPatients==2){
       await getAllSubsriptions();
-      // articleController.changeValueOfSubscriptionsPatients(false);
-      //
-      // articleController.changeValueOfHomePatients(false);
-      // groupChatPatientsController.changeValueOfChatPatients(false);
+
       update();
     }
     if(indexPatients==3){
 
      await getPatientsData();
-     // articleController.changeValueOfHomePatients(false);
-     // articleController.changeValueOfSubscriptionsPatients(false);
-     //
-     // groupChatPatientsController.changeValueOfChatPatients(false);
       update();
 
     }

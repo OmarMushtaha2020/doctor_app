@@ -44,10 +44,9 @@ class AddArticleView extends GetView<AddArticleController> {
               children: [
                 GestureDetector(
                     onTap: () {
-// controller.changeValueOfHome(true).then((value){
                       loginController.moveBetweenPages('layout');
 
-// });
+
                     },
                     child: layoutPatientsAppController.initLang
                             .toString()

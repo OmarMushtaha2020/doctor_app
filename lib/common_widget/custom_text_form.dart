@@ -23,10 +23,6 @@ class CustomTextForm extends StatelessWidget {
           color: const Color(0xFFfafafa),
           borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
-        // textAlign:
-        //     layoutPatientsAppController.initLang.toString().contains("ar")
-        //         ? TextAlign.end
-        //         : TextAlign.start,
         controller: controller,
         keyboardType: textInputType,
         validator: validator,

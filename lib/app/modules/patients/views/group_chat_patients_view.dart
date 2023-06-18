@@ -65,58 +65,55 @@ class GroupChatPatientsView extends GetView<GroupChatPatientsController> {
                       ),
                     ),
 
+Spacer(),
+                    Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      height: 50,
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 15,
+                        end: 0,
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.grey,
+                          )),
+                      child: TextFormField(
+                        maxLines: 999,
+                        controller: messageController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Aa',
 
-                  ],
-                ),
-              ),
-              bottomNavigationBar:                   Padding(
-                padding: const EdgeInsets.only(bottom: 20.0,left: 15,right: 15),
-                child: Container(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  height: 50,
-                  padding: const EdgeInsetsDirectional.only(
-                    start: 15,
-                    end: 0,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.grey,
-                      )),
-                  child: TextFormField(
-                    maxLines: 999,
-                    controller: messageController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Aa',
+                          suffixIcon: MaterialButton(
+                            height: 10,
+                            padding: EdgeInsets.zero,
+                            onPressed: () async {
+                              controller.sendMessage(
+                                receiverId: argument['token'],
 
-                      suffixIcon: MaterialButton(
-                        height: 10,
-                        padding: EdgeInsets.zero,
-                        onPressed: () async {
-                          controller.sendMessage(
-                            receiverId: argument['token'],
+                                dateTime: FieldValue.serverTimestamp(),
+                                text: messageController.text,
 
-                            dateTime: FieldValue.serverTimestamp(),
-                            text: messageController.text,
+                              );
 
-                          );
-
-                          messageController.clear();
-                        },
-                        color: Colors.blue,
-                        elevation: 10,
-                        minWidth: 1,
-                        child: const Icon(
-                          IconBroken.Send,
-                          color: Colors.white,
+                              messageController.clear();
+                            },
+                            color: Colors.blue,
+                            elevation: 10,
+                            minWidth: 1,
+                            child: const Icon(
+                              Icons.send,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              )
-              ,
+              ),
+
             );
           },
         );

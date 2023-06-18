@@ -20,10 +20,7 @@ class CustomText extends StatelessWidget {
           text!.tr,
           style: TextStyle(
               fontSize: fontSize, fontWeight: fontWeight, color: color),
-          // textAlign:
-          //     layoutPatientsAppController.initLang.toString().contains("ar")
-          //         ? TextAlign.end
-          //         : TextAlign.start,
+
         ));
   }
 }

@@ -47,7 +47,6 @@ class GroupChatController extends GetxController {
       value: false,
     );
 
-    // set my chats
 
     FirebaseFirestore.instance
         .collection('patients')

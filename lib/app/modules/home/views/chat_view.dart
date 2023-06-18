@@ -15,7 +15,6 @@ class ChatView extends GetView<LayoutController> {
 
   @override
   Widget build(BuildContext context) {
-    // valueOfChat==false?null:controller.getAllAccountPatients();
 
     return GetBuilder<LayoutController>(
       init: LayoutController(),

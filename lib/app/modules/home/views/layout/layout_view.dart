@@ -32,23 +32,23 @@ class LayoutView extends GetView<LayoutController> {
             },
             items: [
               BottomNavigationBarItem(
-                icon: Icon(IconBroken.Home),
+                icon: const Icon(IconBroken.Home),
                 label: 'Home'.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   IconBroken.Message,
                 ),
                 label: 'Chat'.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   IconBroken.Notification,
                 ),
                 label: 'Notification'.tr,
               ),
               BottomNavigationBarItem(
-                  icon: Icon(IconBroken.Profile), label: "Profile".tr),
+                  icon: const Icon(IconBroken.Profile), label: "Profile".tr),
             ],
           ),
         );
