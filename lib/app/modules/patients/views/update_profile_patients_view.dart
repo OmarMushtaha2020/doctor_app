@@ -51,7 +51,13 @@ layout.changeValueOfIndex(3);
                   child: CustomTextButtom(() {
     if(formKey.currentState!.validate()) {
 
-      controller.updatePatientsData(name: name.text, phone: phone.text, bio: bio.text);
+      controller.updatePatientsData(name: name.text, phone: phone.text, bio: bio.text).then((value) {
+        final layoutPatientsAppController =Get.lazyPut(()=>LayoutPatientsAppController());
+        var latout=Get.find<LayoutPatientsAppController>();
+        loginController.moveBetweenPages('LayoutPatientsAppView');
+
+        latout.getPatientsData ();
+      });
 
     }
                   }, "UPDATE".tr, Colors.blue, 15, FontWeight.w400),

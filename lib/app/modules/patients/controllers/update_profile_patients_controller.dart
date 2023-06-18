@@ -29,13 +29,13 @@ class UpdateProfilePatientsController extends GetxController {
     super.onClose();
   }
   LoginController loginController =LoginController();
-  void updatePatientsData({
+  Future<void> updatePatientsData({
     required String name,
     required String phone,
     required String bio,
     String? cover,
     String? image,
-  }) {
+  }) async {
     patientsAccountModel = PatientsAccountModel(
       name,
       patientsAccountModel!.email,
@@ -55,10 +55,6 @@ class UpdateProfilePatientsController extends GetxController {
         .doc(patientsAccountModel!.token)
         .update(patientsAccountModel?.toMAp()??{})
         .then((value) {
-      final layoutPatientsAppController =Get.lazyPut(()=>LayoutPatientsAppController());
-      loginController.moveBetweenPages('LayoutPatientsAppView');
-
-      layoutController.getPatientsData ();
 update();
     }).catchError((error) {
     });

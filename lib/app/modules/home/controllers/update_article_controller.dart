@@ -61,6 +61,7 @@ class UpdateArticleController extends GetxController {
         update();
 
         valueOfImage = value;
+        print("the value of image$valueOfImage");
         update();
 
         update();

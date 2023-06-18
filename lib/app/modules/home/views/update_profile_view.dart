@@ -48,15 +48,15 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                       child: layoutPatientsAppController.initLang
                               .toString()
                               .contains("ar")
-                          ? Icon(
+                          ? const Icon(
                               IconBroken.Arrow___Right_2,
                               color: Colors.black,
                             )
-                          : Icon(
+                          : const Icon(
                               IconBroken.Arrow___Left_2,
                               color: Colors.black,
                             )),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   CustomText(
