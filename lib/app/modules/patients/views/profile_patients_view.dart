@@ -14,6 +14,8 @@ import 'package:doctor_app/shared/styles/icon_broken.dart';
 class ProfilePatientsView extends GetView <LayoutPatientsAppController>{
    ProfilePatientsView({Key? key}) : super(key: key);
    LoginController loginController=LoginController();
+   final layout=Get.lazyPut(() => LayoutPatientsAppController());
+   LayoutPatientsAppController layoutPatientsAppController=Get.find<LayoutPatientsAppController>();
   @override
   Widget build(BuildContext context) {
     return  GetBuilder<LayoutPatientsAppController>(
@@ -62,7 +64,29 @@ class ProfilePatientsView extends GetView <LayoutPatientsAppController>{
                       CustomSizeBox( 10,),
 
                       CustomAnimation(
-                          Row(children: [
+                          layoutPatientsAppController.initLang.toString().contains("ar")?    Row(children: [
+
+                          Expanded(
+                            child: customOutlineButtom(const Icon(IconBroken.Logout),(){
+                              GetStorage().remove("tokenOfPatients").then((value){
+                                loginController.moveBetweenPages('PageSelectionDoctorOrPatient');
+
+
+                              });
+                            }),
+                          ),
+
+                          CustomSizeBox(0,width: 5,),
+                          Expanded(
+                            child: customOutlineButtom(const Icon(IconBroken.Edit),(){
+                              controller.getPatientsData();
+                              loginController.moveBetweenPages('UpdateProfilePatientsView');
+
+                            }),
+                          ),
+
+                        ],):
+                        Row(children: [
 
                             
                             Expanded(

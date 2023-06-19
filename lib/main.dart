@@ -66,20 +66,18 @@ class MyApp extends StatelessWidget {
         LayoutPatientsAppController layoutPatientsAppController =
             Get.find<LayoutPatientsAppController>();
         print("The lang is ${layoutPatientsAppController.initLang}");
-        return DevicePreview(
-          builder: (context) => GetMaterialApp(
-            title: "Application",
-            locale: layoutPatientsAppController.initLang,
-            translations: MyLocale(),
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              scaffoldBackgroundColor: Color(0Xffffffff),
-              appBarTheme: const AppBarTheme(
-                  backgroundColor: Colors.white, elevation: 0),
-            ),
-            initialRoute: AppPages.INITIAL,
-            getPages: AppPages.routes,
+        return GetMaterialApp(
+          title: "Application",
+          locale: layoutPatientsAppController.initLang,
+          translations: MyLocale(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: Color(0Xffffffff),
+            appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.white, elevation: 0),
           ),
+          initialRoute: AppPages.INITIAL,
+          getPages: AppPages.routes,
         );
       },
     );

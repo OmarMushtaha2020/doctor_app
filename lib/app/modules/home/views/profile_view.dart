@@ -1,3 +1,4 @@
+import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,6 +15,8 @@ import '../controllers/create_password_controller.dart';
 class ProfileView extends GetView<LayoutController> {
   ProfileView({Key? key}) : super(key: key);
   LoginController loginController = LoginController();
+final layout=Get.lazyPut(() => LayoutPatientsAppController());
+  LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,42 @@ class ProfileView extends GetView<LayoutController> {
                     10,
                   ),
                   CustomAnimation(
+                      layoutPatientsAppController.initLang.toString().contains("ar")?
                       Row(
+                        children: [
+                          CustomSizeBox(
+                            0,
+                            width: 5,
+                          ),
+                          customOutlineButtom(Icon(IconBroken.Logout), () {
+                            GetStorage().remove("token").then((value) {
+                              loginController.moveBetweenPages(
+                                  'PageSelectionDoctorOrPatient');
+                            });
+                          }),
+
+                          CustomSizeBox(
+                            0,
+                            width: 5,
+                          ),
+                          customOutlineButtom(Icon(IconBroken.Edit), () {
+                            controller.getDoctorsData();
+                            loginController
+                                .moveBetweenPages('UpdateProfileView');
+                          }),
+                          CustomSizeBox(
+                            0,
+                            width: 5,
+                          ),
+
+                          Expanded(
+                              child: customOutlineButtom(
+                                  CustomText(Colors.blue, 15, FontWeight.w400,
+                                      "Add an article".tr),
+                                      () {})),
+
+                        ],
+                      ):           Row(
                         children: [
                           Expanded(
                               child: customOutlineButtom(

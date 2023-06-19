@@ -1,3 +1,4 @@
+import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -17,6 +18,8 @@ class SearchView extends GetView<SearchController> {
    SearchView({Key? key}) : super(key: key);
    LoginController loginController=LoginController();
    ArticleController articleController=ArticleController();
+   final layoutPatientsAppController=Get.lazyPut(() => LayoutPatientsAppController());
+   var layout=Get.find<LayoutPatientsAppController>();
 var nameOfCategory=TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ var nameOfCategory=TextEditingController();
                       GestureDetector(onTap: (){
                         articleController.changeValueOfHomePatients(true);
                         loginController.moveBetweenPages('LayoutPatientsAppView');
-                      },child: Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
+                      },child: layout.initLang.toString().contains("ar")? Icon(IconBroken.Arrow___Right_2,color: Colors.black,):Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
                       CustomSizeBox(0,width: 20,),
                       CustomText(Colors.black,22,FontWeight.w600,"Search for category".tr),
                     ],
