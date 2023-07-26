@@ -209,7 +209,11 @@ class LayoutController extends GetxController {
                       print("valueOfImage is${valueOfImage?.length}");
                       update();
                     });
+                    update();
+
                   }
+                  update();
+
                 });
               });
               print(values.id);
@@ -230,7 +234,7 @@ class LayoutController extends GetxController {
 
   Future<void> getImage() async {
     imageCategorie = null;
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
 

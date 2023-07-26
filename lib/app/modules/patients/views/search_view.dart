@@ -1,10 +1,10 @@
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
+import 'package:doctor_app/app/modules/patients/controllers/search_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
 import 'package:doctor_app/app/modules/home/views/profile_view.dart';
-import 'package:doctor_app/app/modules/patients/controllers/search_controller.dart';
 import 'package:doctor_app/common_widget/custom_animation.dart';
 import 'package:doctor_app/common_widget/custom_size_box.dart';
 import 'package:doctor_app/common_widget/custom_text.dart';
@@ -13,7 +13,7 @@ import 'package:doctor_app/shared/styles/icon_broken.dart';
 
 import '../controllers/article_controller.dart';
 
-class SearchView extends GetView<SearchController> {
+class SearchView extends GetView<SearchControllers> {
 
    SearchView({Key? key}) : super(key: key);
    LoginController loginController=LoginController();
@@ -27,8 +27,8 @@ var nameOfCategory=TextEditingController();
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: GetBuilder<SearchController>(
-            init: SearchController(),
+          child: GetBuilder<SearchControllers>(
+            init: SearchControllers(),
             builder: (controller){
               return  Column(
                 children: [
@@ -37,7 +37,7 @@ var nameOfCategory=TextEditingController();
                       GestureDetector(onTap: (){
                         articleController.changeValueOfHomePatients(true);
                         loginController.moveBetweenPages('LayoutPatientsAppView');
-                      },child: layout.initLang.toString().contains("ar")? Icon(IconBroken.Arrow___Right_2,color: Colors.black,):Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
+                      },child: layout.initLang.toString().contains("ar")? const Icon(IconBroken.Arrow___Right_2,color: Colors.black,):const Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
                       CustomSizeBox(0,width: 20,),
                       CustomText(Colors.black,22,FontWeight.w600,"Search for category".tr),
                     ],

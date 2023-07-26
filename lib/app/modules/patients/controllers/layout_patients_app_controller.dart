@@ -63,9 +63,9 @@ update();
         update();
       });
     });
-
+update();
   }
-    // update();
+    update();
   }
   Future<void> updateCategories(id) async {
 print("my id is$id");

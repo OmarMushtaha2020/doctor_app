@@ -22,6 +22,7 @@ class HomeView extends GetView<LayoutController> {
 
   @override
   Widget build(BuildContext context) {
+
     return GetBuilder<LayoutController>(
       init: LayoutController(),
       builder: (controller) {
@@ -33,7 +34,8 @@ class HomeView extends GetView<LayoutController> {
               child: const Icon(IconBroken.Plus),
             ),
             body: controller.categories.length == 0
-                ? Column(
+                ?
+            Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SpinKitFadingCube(
@@ -226,18 +228,22 @@ class HomeView extends GetView<LayoutController> {
                                                       0,
                                                       width: 10,
                                                     ),
-                                                    CustomText(
-                                                      const Color(0xFFeb6b7bb),
-                                                      16,
-                                                      FontWeight.w400,
-                                                      controller.imageCategorie !=
-                                                              null
-                                                          ? "${controller.imageCategorie!.path.substring(controller.imageCategorie!.path.lastIndexOf("-")).replaceAll("-", "")}"
-                                                          : "Image Categories"
-                                                              .tr,
-                                                      onTap: () {
-                                                        controller.getImage();
-                                                      },
+                                                    Expanded(
+
+                                                      child: CustomText(
+
+                                                        const Color(0xFFeb6b7bb),
+                                                        16,
+                                                        FontWeight.w400,
+                                                        controller.imageCategorie !=
+                                                                null
+                                                            ? "${controller.imageCategorie!.path.substring(controller.imageCategorie!.path.lastIndexOf("-")).replaceAll("-", "")}"
+                                                            : "Image Categories"
+                                                                .tr,
+                                                        onTap: () {
+                                                          controller.getImage();
+                                                        },
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,7 +9,7 @@ class LoginController extends GetxController {
   //TODO: Implement HomeController
 
   final count = 0.obs;
-
+bool loginValue=false;
   @override
   void onInit() {
     super.onInit();
@@ -23,14 +24,20 @@ class LoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
+changeValueOfLogin(bool values){
+    loginValue=values;
+    print(loginValue);
+    update();
+}
   void increment() => count.value++;
 
-  void moveBetweenPages(route, {arguments}) {
+  Future<void> moveBetweenPages(route, {arguments}) async {
     Get.offNamed(route, arguments: arguments);
   }
 
   void login(dynamic email, dynamic password) {
+    changeValueOfLogin(true);
+
     checkIsEmailInDoctorsCollection(email, password);
 
     update();
@@ -43,6 +50,7 @@ class LoginController extends GetxController {
         .get()
         .then((value) {
       if (value.docs.length != 0) {
+
         FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password)
             .then((value) {
@@ -50,11 +58,19 @@ class LoginController extends GetxController {
 
           tokenOfDoctors = value.user!.uid;
           update();
-          moveBetweenPages('layout');
+
+          moveBetweenPages('layout').then((value) {
+            changeValueOfLogin(false);
+
+          });
         }).catchError((error) {
+          changeValueOfLogin(false);
+
           print(error.toString());
         });
       } else {
+        changeValueOfLogin(false);
+
         print("The email isn't in doctors ");
       }
     });

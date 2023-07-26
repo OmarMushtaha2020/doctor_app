@@ -16,9 +16,11 @@ class HomePatientsView extends GetView<LayoutPatientsAppController> {
 
   @override
   Widget build(BuildContext context) {
+
     return GetBuilder<LayoutPatientsAppController>(
       init: LayoutPatientsAppController(),
       builder: (controller){
+
         return Scaffold(
           body:
          controller.categories.length==0?Column(

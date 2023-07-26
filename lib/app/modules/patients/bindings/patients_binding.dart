@@ -15,8 +15,8 @@ import '../controllers/patients_controller.dart';
 class PatientsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<SearchController>(
-      () => SearchController(),
+    Get.lazyPut<SearchControllers>(
+      () => SearchControllers(),
     );
 
     Get.lazyPut<ArticleController>(

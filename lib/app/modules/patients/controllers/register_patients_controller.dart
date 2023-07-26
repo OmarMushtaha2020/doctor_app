@@ -12,6 +12,7 @@ class RegisterPatientsController extends GetxController {
   //TODO: Implement RegisterPatientsController
 
   final count = 0.obs;
+  bool registerValue=false;
 
   @override
   void onInit() {
@@ -27,8 +28,15 @@ class RegisterPatientsController extends GetxController {
   void onClose() {
     super.onClose();
   }
+  changeValueOfRegister(bool values){
+    registerValue=values;
+    print(registerValue);
+    update();
+  }
 
   Future<void> register(dynamic email, dynamic password, dynamic name, dynamic phone) async {
+    changeValueOfRegister(true);
+
     var text= await MyEncryptionDecryption.encryptAES("$password");
     print(" the ex is${text.base64}");
     FirebaseAuth.instance
@@ -36,11 +44,12 @@ class RegisterPatientsController extends GetxController {
         .then((value) {
       GetStorage().write("tokenOfPatients", value.user?.uid);
 
-      createAccount(name, email, phone, value.user?.uid, text.base64).then((
-          value) {});
+      createAccount(name, email, phone, value.user?.uid, text.base64).then((value) {});
       update();
     })
         .catchError((error) {
+      changeValueOfRegister(false);
+
       print(error.toString());
     });
     update();
@@ -68,12 +77,17 @@ class RegisterPatientsController extends GetxController {
       update();
       print("the token is$tokenOfPatients");
       getAllCategoriesOfPatients().then((value) {
-        loginController.moveBetweenPages('LayoutPatientsAppView');
+        loginController.moveBetweenPages('LayoutPatientsAppView').then((value){
+          changeValueOfRegister(false);
+
+        });
         update();
         print(patientsAccountModel?.name);
       });
 
     }).catchError((error) {
+      changeValueOfRegister(false);
+
       print(error.toString());
     });
     update();

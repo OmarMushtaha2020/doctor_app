@@ -85,15 +85,23 @@ class ArticleDetailsView extends GetView<LayoutController> {
               crossAxisAlignment:
                        CrossAxisAlignment.start,
               children: [
-                CustomAnimation(
-                    CustomText(Colors.black, 20, FontWeight.w600,
-                        "Name/ ${argument['name']}"),
-                    0),
+                Row(
+                  children: [
+                    CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Name :".tr),0),
+                    CustomSizeBox(0,width: 10,),
+
+                    CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "${argument['name']}"),0),
+
+                  ],
+                ),
+
                 CustomSizeBox(20),
-                CustomAnimation(
-                    CustomText(Colors.black, 20, FontWeight.w600,
-                        "Details : \n${argument['details']}"),
-                    0),
+
+                CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Details :".tr),0),
+                CustomSizeBox(10),
+
+                CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "${argument['details']}"),0),
+
               ],
             ),
           ),

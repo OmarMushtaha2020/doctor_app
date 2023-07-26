@@ -5,10 +5,13 @@ class MyLocale implements Translations {
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          "Details :":"التفاصيل :",
+          "Name :":"الاسم :",
           "Doctor": "طبيب",
-          "Patients": "المرضى",
+          "Patients": "مريض",
           "The": "ال",
           "Doctors": "الأطباء",
+          "patients":"المرضى",
           "Enter email address": "أدخل عنوان البريد الالكتروني",
           "email mustn't be empty": "يجب ألا يكون البريد الإلكتروني فارغًا",
           "Master password": "كلمة السر الرئيسية",
@@ -110,6 +113,8 @@ class MyLocale implements Translations {
           "Add an article": "Add an article",
           "Edit Profile": "Edit Profile",
           "UPDATE": "UPDATE",
+          "patients":"patients",
+
           "Enter your bio": "Enter your bio",
           "bio mustn't be empty": "bio mustn't be empty",
           "Name categories": "Name categories",
@@ -136,6 +141,8 @@ class MyLocale implements Translations {
           "Please enter a category name": "Please enter a category name",
           "There is no category with this name":
               "There is no category with this name",
+          "Details :":"Details :",
+          "Name :":"Name :",
         },
       };
 }

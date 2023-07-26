@@ -24,8 +24,16 @@ class PatientsController extends GetxController {
   void onClose() {
     super.onClose();
   }
+  bool loginValue=false;
+  changeValueOfLogin(bool values){
+    loginValue=values;
+    print(loginValue);
+    update();
+  }
 
   void login(dynamic email, dynamic password) {
+    changeValueOfLogin(true);
+
     checkIsEmailInDoctorsCollection(email,password);
     update();
   }
@@ -40,11 +48,18 @@ class PatientsController extends GetxController {
 
           tokenOfPatients=value.user!.uid;
           update();
-          loginController.moveBetweenPages('LayoutPatientsAppView');
+          loginController.moveBetweenPages('LayoutPatientsAppView').then((value){
+            changeValueOfLogin(false);
+
+          });
         }).catchError((error) {
+          changeValueOfLogin(false);
+
           print(error.toString());
         });
       } else {
+        changeValueOfLogin(false);
+
         print("The email isn't in doctors ");
       }
     }

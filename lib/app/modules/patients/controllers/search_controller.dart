@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:doctor_app/app/data/categories_model.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 
-class SearchController extends GetxController {
+class SearchControllers extends GetxController {
   //TODO: Implement SearchController
   List<CategoriesModel> searchCategories = [];
 LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppController();

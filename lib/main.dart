@@ -1,7 +1,7 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:doctor_app/shared/locale/locale.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -67,16 +67,24 @@ class MyApp extends StatelessWidget {
             Get.find<LayoutPatientsAppController>();
         print("The lang is ${layoutPatientsAppController.initLang}");
         return GetMaterialApp(
+
           title: "Application",
           locale: layoutPatientsAppController.initLang,
           translations: MyLocale(),
+
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            scaffoldBackgroundColor: Color(0Xffffffff),
-            appBarTheme: const AppBarTheme(
+            scaffoldBackgroundColor: const Color(0Xffffffff),
+            appBarTheme:  AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+statusBarBrightness: Brightness.dark,
+statusBarIconBrightness: Brightness.dark,
+              ),
                 backgroundColor: Colors.white, elevation: 0),
           ),
           initialRoute: AppPages.INITIAL,
+          themeMode: ThemeMode.light,
           getPages: AppPages.routes,
         );
       },

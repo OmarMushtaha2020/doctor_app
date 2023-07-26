@@ -11,11 +11,11 @@ import 'package:doctor_app/common_widget/custom_size_box.dart';
 import 'package:doctor_app/common_widget/custom_text.dart';
 import 'package:doctor_app/shared/styles/icon_broken.dart';
 
+import '../../../../common_widget/custom_text_form.dart';
+
 class ProfilePatientsView extends GetView <LayoutPatientsAppController>{
    ProfilePatientsView({Key? key}) : super(key: key);
    LoginController loginController=LoginController();
-   final layout=Get.lazyPut(() => LayoutPatientsAppController());
-   LayoutPatientsAppController layoutPatientsAppController=Get.find<LayoutPatientsAppController>();
   @override
   Widget build(BuildContext context) {
     return  GetBuilder<LayoutPatientsAppController>(
@@ -64,7 +64,7 @@ class ProfilePatientsView extends GetView <LayoutPatientsAppController>{
                       CustomSizeBox( 10,),
 
                       CustomAnimation(
-                          layoutPatientsAppController.initLang.toString().contains("ar")?    Row(children: [
+                          controller.initLang.toString().contains("ar")?    Row(children: [
 
                           Expanded(
                             child: customOutlineButtom(const Icon(IconBroken.Logout),(){

@@ -15,6 +15,8 @@ PatientsAccountModel? patientsAccountModel;
 dynamic tokenOfDoctors = '';
 
 class RegisterController extends GetxController {
+  bool registerValue=false;
+
   @override
   void onInit() {
     super.onInit();
@@ -29,9 +31,15 @@ class RegisterController extends GetxController {
   void onClose() {
     super.onClose();
   }
+  changeValueOfRegister(bool values){
+    registerValue=values;
+    print(registerValue);
+    update();
+  }
 
   Future<void> register(
       dynamic email, dynamic password, dynamic name, dynamic phone) async {
+    changeValueOfRegister(true);
     var text = await MyEncryptionDecryption.encryptAES("$password");
     print(" the ex is${text.base64}");
 
@@ -42,6 +50,8 @@ class RegisterController extends GetxController {
 
       createAccount(name, email, phone, value.user?.uid, text.base64);
     }).catchError((error) {
+      changeValueOfRegister(false);
+
       print(error.toString());
     });
     update();
@@ -66,8 +76,13 @@ class RegisterController extends GetxController {
       update();
       LoginController loginController = Get.put(LoginController());
 
-      loginController.moveBetweenPages('layout');
+      loginController.moveBetweenPages('layout').then((value) {
+        changeValueOfRegister(false);
+
+      });
     }).catchError((error) {
+      changeValueOfRegister(false);
+
       print(error.toString());
     });
     update();

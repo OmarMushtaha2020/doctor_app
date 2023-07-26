@@ -116,7 +116,7 @@ update();
   var picker = ImagePicker();
 
   Future<void> getProfileImage(name,phone,bio) async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
 
@@ -133,7 +133,7 @@ update();
 
 
   Future<void> getCoverImage(name,phone,bio) async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
 

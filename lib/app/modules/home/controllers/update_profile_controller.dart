@@ -110,7 +110,7 @@ class UpdateProfileController extends GetxController {
   var picker = ImagePicker();
 
   Future<void> getProfileImage(name, phone, bio) async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
 
@@ -126,7 +126,7 @@ class UpdateProfileController extends GetxController {
   }
 
   Future<void> getCoverImage(name, phone, bio) async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
 

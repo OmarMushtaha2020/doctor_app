@@ -34,7 +34,7 @@ class UpdateArticleController extends GetxController {
   File? imageArticle;
 
   Future<void> getImage() async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
     update();
