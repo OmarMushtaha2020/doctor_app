@@ -40,11 +40,11 @@ class GroupChatView extends GetView<GroupChatController> {
                         child: layoutPatientsAppController.initLang
                                 .toString()
                                 .contains("ar")
-                            ? Icon(
+                            ? const Icon(
                                 IconBroken.Arrow___Right_2,
                                 color: Colors.black,
                               )
-                            : Icon(
+                            : const Icon(
                                 IconBroken.Arrow___Left_2,
                                 color: Colors.black,
                               )),
@@ -70,7 +70,7 @@ class GroupChatView extends GetView<GroupChatController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     controller.messages.length == 0
-                        ? Center(child: const Text("Never communicated before"))
+                        ? const Center(child: Text("Never communicated before"))
                         : Expanded(
                             child: ListView.separated(
                               physics: const BouncingScrollPhysics(),
@@ -90,7 +90,7 @@ class GroupChatView extends GetView<GroupChatController> {
                               itemCount: controller.messages.length,
                             ),
                           ),
-                 Spacer(),
+                 const Spacer(),
                     Container(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       height: 50,

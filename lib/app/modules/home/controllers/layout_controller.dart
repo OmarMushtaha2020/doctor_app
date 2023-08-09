@@ -46,6 +46,10 @@ class LayoutController extends GetxController {
 
   @override
   void onReady() {
+    getAllAccountPatients();
+    getAllCategories();
+    getDoctorsData();
+
     super.onReady();
   }
 
@@ -57,21 +61,7 @@ class LayoutController extends GetxController {
   Future<void> changeValueOfIndex(value) async {
     index = value;
     bottomSheet = false;
-    if (index == 0) {
-      getAllCategories();
-    }
-    if (index == 1) {
-      getAllAccountPatients();
 
-      update();
-    }
-    if (index == 2) {}
-    if (index == 3) {
-      getDoctorsData();
-
-      update();
-    }
-    print(index);
     update();
   }
 

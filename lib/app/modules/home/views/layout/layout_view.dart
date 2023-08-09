@@ -9,8 +9,7 @@ bool valueOfHome = false;
 class LayoutView extends GetView<LayoutController> {
   @override
   Widget build(BuildContext context) {
-    controller.getAllAccountPatients();
-    controller.getAllCategories();
+
     return GetBuilder<LayoutController>(
       init: LayoutController(),
       builder: (controller) {

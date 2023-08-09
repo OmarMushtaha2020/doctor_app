@@ -13,9 +13,6 @@ class LayoutPatientsAppView extends GetView<LayoutPatientsAppController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getAllCategories();
-    controller.getAllAccountDoctors();
-    controller.getAllSubsriptions();
 
 
     return GetBuilder<LayoutPatientsAppController>(

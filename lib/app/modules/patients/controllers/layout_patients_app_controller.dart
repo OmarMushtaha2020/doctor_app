@@ -19,6 +19,7 @@ bool value=false;
 ArticleController articleController=ArticleController();
 GroupChatPatientsController groupChatPatientsController=GroupChatPatientsController();
 class LayoutPatientsAppController extends GetxController {
+
   List<CategoriesModel> categories = [];
   List<CategoriesModel> subsriptions = [];
   CategoriesModel? categoriesModel;
@@ -73,6 +74,8 @@ print("my id is$id");
     FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).get().then((value){
       if(value.data()?['like']==true){
         categories[index].like=false;
+        update();
+
         subsriptions.removeAt(index);
         update();
         FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).update({"like":false,"idOfPatients":tokenOfPatients}).then((value) {
@@ -127,6 +130,10 @@ update();
 
   @override
   void onReady() {
+    getAllCategories();
+    getAllAccountDoctors();
+    getAllSubsriptions();
+getPatientsData();
     super.onReady();
   }
 

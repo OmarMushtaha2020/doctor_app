@@ -41,8 +41,8 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                           fit: BoxFit.cover,
                           imageUrl: "${doctorAccountModel?.image}",
                           progressIndicatorBuilder: (context, url, downloadProgress) =>
-                              CircularProgressIndicator(value: downloadProgress.progress),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
+                            Container(width: double.infinity,height: 200),
+                          errorWidget: (context, url, error) =>  Container(width: double.infinity,height: 200),
                         ),
 
                       ),
