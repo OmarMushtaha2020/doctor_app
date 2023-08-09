@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_app/app/modules/home/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -6,7 +7,6 @@ import 'package:doctor_app/app/modules/home/controllers/add_article_controller.d
 import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:doctor_app/app/modules/home/controllers/login_controller.dart';
 import 'package:doctor_app/app/modules/home/views/profile_view.dart';
-import 'package:doctor_app/common_widget/custom_animation.dart';
 import 'package:doctor_app/common_widget/custom_buttom.dart';
 import 'package:doctor_app/common_widget/custom_size_box.dart';
 import 'package:doctor_app/common_widget/custom_text.dart';
@@ -86,15 +86,26 @@ class HomeView extends GetView<LayoutController> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           height: 85,
+                                          clipBehavior: Clip.antiAliasWithSaveLayer,
                                           width: 85,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             color: Colors.white,
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "${controller.categories[index].imageCategories}"),
-                                                fit: BoxFit.cover),
+
+                                          ),
+                                          child: CachedNetworkImage(
+                                            fit: BoxFit.cover,
+                                            imageUrl: "${controller.categories[index].imageCategories}",
+                                            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                                Container(height: 85,width: 85,decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(20),
+                                                ),),
+                                            errorWidget: (context, url, error) =>           Container(height: 85,width: 85,decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(20),
+                                            ),),
                                           ),
                                         ),
                                       ),
@@ -141,7 +152,7 @@ class HomeView extends GetView<LayoutController> {
                                             ),
                                             color: Colors.blue, onTap: () {
                                           controller.deleteCategories(
-                                              controller.categories[index].id);
+                                              controller.categories[index].id,index);
                                         }),
                                       )
                                     : Positioned(
@@ -154,7 +165,7 @@ class HomeView extends GetView<LayoutController> {
                                             ),
                                             color: Colors.blue, onTap: () {
                                           controller.deleteCategories(
-                                              controller.categories[index].id);
+                                              controller.categories[index].id,index);
                                         }),
                                       )
                                 : Container(),
@@ -191,7 +202,6 @@ class HomeView extends GetView<LayoutController> {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        CustomAnimation(
                                             CustomTextForm(
                                                 nameCategories,
                                                 "Name categories".tr,
@@ -202,9 +212,7 @@ class HomeView extends GetView<LayoutController> {
                                                     .tr;
                                               }
                                             }),
-                                            0),
                                         CustomSizeBox(15),
-                                        CustomAnimation(
                                             Container(
                                               width: double.infinity,
                                               height: 50,
@@ -249,9 +257,7 @@ class HomeView extends GetView<LayoutController> {
                                                 ),
                                               ),
                                             ),
-                                            500),
                                         CustomSizeBox(15),
-                                        CustomAnimation(
                                             CustomTextForm(
                                                 detailsCategories,
                                                 "Details Categories".tr,
@@ -262,9 +268,7 @@ class HomeView extends GetView<LayoutController> {
                                                     .tr;
                                               }
                                             }),
-                                            1000),
                                         CustomSizeBox(15),
-                                        CustomAnimation(
                                             CustomButtom(() {
                                               if (formKey.currentState!
                                                   .validate()) {
@@ -274,14 +278,16 @@ class HomeView extends GetView<LayoutController> {
                                                         detailsCategories.text,
                                                         controller.valueOfImage)
                                                     .then((value) {
-                                                  Future.delayed(const Duration(
-                                                          milliseconds: 500))
-                                                      .then((value) {
+
                                                     nameCategories.clear();
                                                     detailsCategories.clear();
                                                     controller.imageCategorie =
                                                         null;
-                                                  });
+                                                   controller. changeValueOfBottomSheet(false
+                                                   ).then((value){
+                                                     controller.valueOfImage = '';
+                                                   });
+
                                                 });
                                               }
                                             },
@@ -292,7 +298,6 @@ class HomeView extends GetView<LayoutController> {
                                                 Colors.white,
                                                 "Continue".tr,
                                                 15),
-                                            1500),
                                       ],
                                     ),
                                   ),

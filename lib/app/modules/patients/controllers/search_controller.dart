@@ -25,10 +25,13 @@ LayoutPatientsAppController layoutPatientsAppController=LayoutPatientsAppControl
 
 Future<void> getAllSearchCategory(nameCategories) async {
   searchCategories=[];
-  FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").where("nameCategories",isEqualTo: nameCategories).get().then((value){
+  FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value){
     value.docs.forEach((element) {
-      searchCategories.add(CategoriesModel.fromJson(element.data()));
-      update();
+      if(element.data()['nameCategories'].toString().trim()==nameCategories.toString().trim()) {
+        searchCategories.add(CategoriesModel.fromJson(element.data()));
+        update();
+
+      }
     });
   });
 update();

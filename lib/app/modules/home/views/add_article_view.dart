@@ -200,7 +200,6 @@ class AddArticleView extends GetView<AddArticleController> {
                               child: SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    CustomAnimation(
                                         CustomTextForm(
                                             articleName,
                                             "Article Name".tr,
@@ -211,9 +210,7 @@ class AddArticleView extends GetView<AddArticleController> {
                                                 .tr;
                                           }
                                         }),
-                                        0),
                                     CustomSizeBox(15),
-                                    CustomAnimation(
                                         Container(
                                           width: double.infinity,
                                           height: 50,
@@ -235,25 +232,25 @@ class AddArticleView extends GetView<AddArticleController> {
                                                   0,
                                                   width: 10,
                                                 ),
-                                                CustomText(
-                                                  const Color(0xffeb6b7bb),
-                                                  16,
-                                                  FontWeight.w400,
-                                                  controller.imageArticle !=
-                                                          null
-                                                      ? "${controller.imageArticle!.path.substring(controller.imageArticle!.path.lastIndexOf("-")).replaceAll("-", "")}"
-                                                      : "Image Article".tr,
-                                                  onTap: () {
-                                                    controller.getImage();
-                                                  },
+                                                Expanded(
+                                                  child: CustomText(
+                                                    const Color(0xffeb6b7bb),
+                                                    16,
+                                                    FontWeight.w400,
+                                                    controller.imageArticle !=
+                                                            null
+                                                        ? "${controller.imageArticle!.path.substring(controller.imageArticle!.path.lastIndexOf("-")).replaceAll("-", "")}"
+                                                        : "Image Article".tr,
+                                                    onTap: () {
+                                                      controller.getImage();
+                                                    },
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
-                                        500),
                                     CustomSizeBox(15),
-                                    CustomAnimation(
                                         Container(
                                           decoration: BoxDecoration(
                                               color: const Color(0xFFfafafa),
@@ -281,9 +278,7 @@ class AddArticleView extends GetView<AddArticleController> {
                                             ),
                                           ),
                                         ),
-                                        1000),
                                     CustomSizeBox(15),
-                                    CustomAnimation(
                                         CustomButtom(() {
                                           if (formKey.currentState!
                                               .validate()) {
@@ -293,11 +288,15 @@ class AddArticleView extends GetView<AddArticleController> {
                                                     articleDetails.text,
                                                     controller.valueOfImage,
                                                     argument['id'])
-                                                .then((value) {});
+                                                .then((value) {
+                                              articleName.clear();
+                                              articleDetails.clear();
+                                              controller.valueOfImage="";
+
+                                            });
                                           }
                                         }, Colors.blue, 50, double.infinity, 10,
                                             Colors.white, "Continue".tr, 15),
-                                        1500),
                                   ],
                                 ),
                               ),

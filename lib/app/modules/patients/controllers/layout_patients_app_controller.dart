@@ -12,6 +12,7 @@ import 'package:doctor_app/app/modules/patients/views/home_patients_view.dart';
 import 'package:doctor_app/app/modules/patients/views/profile_patients_view.dart';
 import 'package:doctor_app/app/modules/patients/views/subscriptions_view.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:path_provider/path_provider.dart';
 dynamic tokenOfPatients='';
 var indexPatients = 0;
 bool value=false;
@@ -194,5 +195,28 @@ update();
 
     });
   update();
+  }
+  Future<void> deleteCacheDir() async {
+    final cacheDir = await getTemporaryDirectory();
+
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+      update();
+
+    }
+    update();
+  }
+
+  /// this will delete app's storage
+  Future<void> deleteAppDir() async {
+    final appDir = await getApplicationSupportDirectory();
+
+    if(appDir.existsSync()){
+      appDir.deleteSync(recursive: true);
+      update();
+
+    }
+    update();
+
   }
 }

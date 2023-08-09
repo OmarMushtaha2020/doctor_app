@@ -24,7 +24,7 @@ class ChatView extends GetView<LayoutController> {
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SpinKitFadingCube(
+                      const SpinKitFadingCube(
                         color: Colors.blue,
                         size: 50.0,
                       ),

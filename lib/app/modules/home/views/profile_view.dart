@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -36,12 +37,14 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                       Container(
                         width: double.infinity,
                         height: 200,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  NetworkImage('${doctorAccountModel?.image}'),
-                              fit: BoxFit.cover),
+                        child:  CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: "${doctorAccountModel?.image}",
+                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                              CircularProgressIndicator(value: downloadProgress.progress),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
+
                       ),
                       0),
                   Positioned(
@@ -53,6 +56,7 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                             customCircleAvatar(62, color: Colors.white),
                             customCircleAvatar(60,
                                 color: Colors.white,
+
                                 image: "${doctorAccountModel?.cover}"),
                           ],
                         ),
@@ -162,7 +166,7 @@ Widget customCircleAvatar(double raduis,
           child: widget,
           radius: raduis,
           backgroundColor: color,
-          backgroundImage: NetworkImage(image ?? ""),
+          backgroundImage: NetworkImage(image?? ""),
         ));
 
 Widget customOutlineButtom(Widget widget, void Function() onPressed) =>

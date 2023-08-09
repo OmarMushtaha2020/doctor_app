@@ -13,30 +13,42 @@ class ForgotPasswordPatientsView extends GetView<ForgotPasswordPatientsControlle
    ForgotPasswordPatientsView({Key? key}) : super(key: key);
    var email=TextEditingController();
    LoginController loginController=LoginController();
+   var formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
         ),
         body: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
-              CustomSizeBox(25),
+          padding:  const EdgeInsets.symmetric(horizontal: 30),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:  [
+                CustomSizeBox(25),
 
-              CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Forgot patient account password?".tr),0),
-              CustomSizeBox(10),
+                CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Forgot patient account password?".tr),0),
+                CustomSizeBox(10),
 
-              CustomAnimation( CustomText(Colors.grey, 12, FontWeight.w400, "No worries, you just need to type your email \naddress or username and we will send the \nverification code.".tr),500)
-              , CustomSizeBox(20),
+                CustomAnimation( CustomText(Colors.grey, 12, FontWeight.w400, "No worries, you just need to type your email \naddress or username and we will send the \nverification code.".tr),500)
+                , CustomSizeBox(20),
 
-              CustomAnimation( CustomTextForm(email, "Enter email address".tr,TextInputType.emailAddress),1000),
-              CustomSizeBox(25),
-              CustomAnimation( CustomButtom(() {
-controller.checkIsEmailInPatientsCollection(email.text);
+                CustomAnimation( CustomTextForm(email, "Enter email address".tr,TextInputType.emailAddress,validator: (value){
+                  if(value!.isEmpty){
+                    return "Email mustn't be empty";
+                  }
+                  return null;
+                },),1000),
+                CustomSizeBox(25),
+                CustomAnimation( CustomButtom(() {
+                  if(formKey.currentState!.validate()){
+                    controller.checkIsEmailInPatientsCollection(email.text);
+
+                  }
 }, Colors.blue, 50, double.infinity, 10, Colors.white, "Reset My Password".tr, 15),1500)
-            ],
+              ],
+            ),
           ),
         )
     );

@@ -66,6 +66,9 @@ class MyApp extends StatelessWidget {
         LayoutPatientsAppController layoutPatientsAppController =
             Get.find<LayoutPatientsAppController>();
         print("The lang is ${layoutPatientsAppController.initLang}");
+        layoutPatientsAppController.deleteAppDir();
+        layoutPatientsAppController.deleteCacheDir();
+
         return GetMaterialApp(
 
           title: "Application",
@@ -75,7 +78,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: const Color(0Xffffffff),
-            appBarTheme:  AppBarTheme(
+            appBarTheme:  const AppBarTheme(
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: Colors.transparent,
 statusBarBrightness: Brightness.dark,
@@ -90,4 +93,5 @@ statusBarIconBrightness: Brightness.dark,
       },
     );
   }
+
 }

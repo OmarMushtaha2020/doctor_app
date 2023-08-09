@@ -13,6 +13,7 @@ class CreatePasswordPatientsView extends GetView<CreatePasswordPatientsControlle
    var password=TextEditingController();
    var confirm_password=TextEditingController();
    var token=Get.arguments;
+   var formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,28 +21,43 @@ class CreatePasswordPatientsView extends GetView<CreatePasswordPatientsControlle
 
         ),
         body: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
-              CustomSizeBox(25),
+          padding:  const EdgeInsets.symmetric(horizontal: 30),
+          child: Form(key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:  [
+                  CustomSizeBox(25),
 
-              CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Create a new password for the patient account".tr),0),
-              CustomSizeBox(10),
+                  CustomAnimation( CustomText(Colors.black, 20, FontWeight.w600, "Create a new password for the patient account".tr),0),
+                  CustomSizeBox(10),
 
-              CustomAnimation( CustomText(Colors.grey, 12, FontWeight.w400, "Create your new password to login".tr),500)
-              , CustomSizeBox(20),
+                  CustomAnimation( CustomText(Colors.grey, 12, FontWeight.w400, "Create your new password to login".tr),500)
+                  , CustomSizeBox(20),
 
-              CustomAnimation( CustomTextForm(password, "PASSWORD".tr,TextInputType.visiblePassword),1000),
-              CustomSizeBox(20),
+                  CustomAnimation( CustomTextForm(password, "PASSWORD".tr,TextInputType.visiblePassword,validator: (value){
+                    if(value!.isEmpty){
+                      return "Password mustn't be empty";
+                    }
+                  },),1000),
+                  CustomSizeBox(20),
 
-              CustomAnimation( CustomTextForm(confirm_password, "CONFIRM PASSWORD".tr,TextInputType.visiblePassword),1500),
+                  CustomAnimation( CustomTextForm(confirm_password, "CONFIRM PASSWORD".tr,TextInputType.visiblePassword,validator: (value){
+                    if(value!.isEmpty){
+                      return "Confirm Password mustn't be empty";
+                    }
+                  }),1500),
 
-              CustomSizeBox(25),
-              CustomAnimation( CustomButtom(() {
-               controller.upatePasswordOfAccountPatients(token,password.text,confirm_password.text);
-              }, Colors.blue, 50, double.infinity, 10, Colors.white, "Save".tr, 15),2000)
-            ],
+                  CustomSizeBox(25),
+                  CustomAnimation( CustomButtom(() {
+                    if(formKey.currentState!.validate()){
+                      controller.upatePasswordOfAccountPatients(token,password.text,confirm_password.text);
+
+                    }
+                  }, Colors.blue, 50, double.infinity, 10, Colors.white, "Save".tr, 15),2000)
+                ],
+              ),
+            ),
           ),
         )
     );

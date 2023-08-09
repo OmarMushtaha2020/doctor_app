@@ -26,7 +26,7 @@ class HomePatientsView extends GetView<LayoutPatientsAppController> {
          controller.categories.length==0?Column(
            mainAxisAlignment: MainAxisAlignment.center,
            children: [
-             SpinKitFadingCube(
+             const SpinKitFadingCube(
                color: Colors.blue,
 
                size: 50.0,

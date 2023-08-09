@@ -151,7 +151,7 @@ class LayoutController extends GetxController {
         imageCategorie?.path.length != 0) {
       categoriesModel = CategoriesModel(nameCategories, detailsCategories,
           imageCategories, false, tokenOfDoctors);
-      Future.delayed(Duration(milliseconds: 1000)).then((value) {
+      categories..add(categoriesModel!);
         FirebaseFirestore.instance
             .collection("Categories")
             .where("nameCategories", isEqualTo: nameCategories)
@@ -162,6 +162,7 @@ class LayoutController extends GetxController {
                 .collection("Categories")
                 .add(categoriesModel?.toMap() ?? {})
                 .then((values) {
+
               FirebaseFirestore.instance
                   .collection("Categories")
                   .doc(values.id)
@@ -203,12 +204,7 @@ class LayoutController extends GetxController {
                         });
                       });
                     });
-                    changeValueOfBottomSheet(false).then((value) {
-                      getAllCategories();
-                      valueOfImage = '';
-                      print("valueOfImage is${valueOfImage?.length}");
-                      update();
-                    });
+
                     update();
 
                   }
@@ -222,8 +218,6 @@ class LayoutController extends GetxController {
           }
         });
         update();
-      });
-      update();
     }
 
     update();
@@ -264,7 +258,8 @@ class LayoutController extends GetxController {
     }).catchError((error) {});
   }
 
-  Future<void> deleteCategories(id) async {
+  Future<void> deleteCategories(id,int index) async {
+    categories.removeAt(index);
     FirebaseFirestore.instance
         .collection("Categories")
         .doc('$id')
@@ -297,7 +292,6 @@ class LayoutController extends GetxController {
         });
       });
       deleteCategoriesOfPatients(id);
-      getAllCategories();
       update();
     });
   }
@@ -328,18 +322,7 @@ class LayoutController extends GetxController {
     });
   }
 
-  Future<void> deleteCollection(
-      String collectionPath1, String collectionPath2) async {
-    CollectionReference collectionRef = FirebaseFirestore.instance
-        .collection(collectionPath1)
-        .doc(tokenOfPatients)
-        .collection(collectionPath2);
-    QuerySnapshot querySnapshot = await collectionRef.get();
-    querySnapshot.docs.forEach((doc) async {
-      await doc.reference.delete();
-    });
-    await collectionRef.doc().delete(); // delete the collection itself
-  }
+
 }
 
 List<MessageModel> chats = [];

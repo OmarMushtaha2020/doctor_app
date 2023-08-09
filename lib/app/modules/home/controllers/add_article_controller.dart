@@ -100,16 +100,17 @@ class AddArticleController extends GetxController {
       nameArticle, detailsArticle, imageArticle, idOfCategories) async {
     articleModel = ArticleModel(nameArticle, detailsArticle, imageArticle,
         idOfCategories, tokenOfDoctors);
-    Future.delayed(Duration(milliseconds: 1000)).then((value) {
       FirebaseFirestore.instance
           .collection("Categories")
           .doc("$idOfCategories")
           .collection("Article")
           .add(articleModel?.toMap() ?? {})
           .then((value) {
+
         articleModel = ArticleModel(nameArticle, detailsArticle, imageArticle,
             idOfCategories, tokenOfDoctors,
             idOfArticle: value.id);
+        article.add(articleModel!);
         update();
         FirebaseFirestore.instance
             .collection("Categories")
@@ -118,10 +119,7 @@ class AddArticleController extends GetxController {
             .doc(value.id)
             .update(articleModel?.toMap() ?? {})
             .then((value) {
-          getAllArticle(idOfCategories);
           changeValueOfBottomSheet(false);
-          update();
-        });
 
         update();
       }).catchError((error) {});
