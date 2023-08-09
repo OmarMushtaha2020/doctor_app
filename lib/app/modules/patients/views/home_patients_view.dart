@@ -84,7 +84,7 @@ class HomePatientsView extends GetView<LayoutPatientsAppController> {
                               color: controller.categories[index].like==false?Colors.grey:Colors.blue,
                               widget:       const Icon(IconBroken.Star,color: Colors.white,),
 onTap: (){
-                                controller.updateCategories(controller.categories[index].idOfMyCategories);
+                                controller.updateCategories(controller.categories[index].idOfMyCategories,index);
 }
                             ),
                           ),

@@ -81,7 +81,7 @@ class SubscriptionsView extends GetView<LayoutPatientsAppController> {
                                 color: controller.subsriptions[index].like==false?Colors.grey:Colors.blue,
                                 widget:       const Icon(IconBroken.Star,color: Colors.white,),
                                 onTap: (){
-                                  controller.updateCategories(controller.subsriptions[index].idOfMyCategories);
+                                  controller.updateCategories(controller.subsriptions[index].idOfMyCategories,index);
                                   print("omar");
                                 }
                             ),

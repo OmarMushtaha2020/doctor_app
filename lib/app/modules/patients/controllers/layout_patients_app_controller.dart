@@ -68,20 +68,22 @@ update();
   }
     update();
   }
-  Future<void> updateCategories(id) async {
+  Future<void> updateCategories(id,index) async {
 print("my id is$id");
     FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).get().then((value){
       if(value.data()?['like']==true){
+        categories[index].like=false;
+        subsriptions.removeAt(index);
+        update();
         FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).update({"like":false,"idOfPatients":tokenOfPatients}).then((value) {
-          getAllSubsriptions();
-          getAllCategories();
 
         });
       }
       if(value.data()?['like']==false){
+        categories[index].like=true;
+        update();
         FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).update({"like":true,"idOfPatients":tokenOfPatients}).then((value) {
-          getAllSubsriptions();
-          getAllCategories();
+
         });
       }
     });
