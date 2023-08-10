@@ -116,7 +116,8 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
                 ),
                 CustomSizeBox(20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: const EdgeInsets.only(left
+                      : 30,right: 30,bottom: 20),
                   child: Column(
                     children: [
                       CustomAnimation(
