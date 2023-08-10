@@ -55,7 +55,8 @@ class ChatPatientsView extends GetView<LayoutPatientsAppController> {
                           GestureDetector(onTap: (){
                             GroupChatPatientsController groupChatPatientsController =GroupChatPatientsController();
                             groupChatPatientsController.getMessages(receiverId:  controller.doctors[index].token);
-                          },child: Container(clipBehavior: Clip.antiAliasWithSaveLayer,width: 50,height: 50,decoration: const BoxDecoration(shape: BoxShape.circle),child:  CachedNetworkImage(imageUrl: "${controller.doctors[index].cover}",
+                          },child:
+                          Container(clipBehavior: Clip.antiAliasWithSaveLayer,width: 50,height: 50,decoration: const BoxDecoration(shape: BoxShape.circle),child:  CachedNetworkImage(imageUrl: "${controller.doctors[index].cover}",
                             fit: BoxFit.cover,
                             progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 85,width: 85,color: Colors.white),
                             errorWidget: (context, url, error) => Container(height: 85,width: 85,color: Colors.white),
@@ -65,8 +66,19 @@ class ChatPatientsView extends GetView<LayoutPatientsAppController> {
                           Stack(
                             alignment: AlignmentDirectional.center,
                             children: [
-                              customCircleAvatar(10,color:Colors.white),
-                              customCircleAvatar(7,color:Colors.blue),
+                              Container(height: 20,width: 20,decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+
+
+                              ),),
+
+                              Container(height:15,width: 15,decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.blue,
+
+
+                              ),),
 
                             ],
                           )

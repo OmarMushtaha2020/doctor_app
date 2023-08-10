@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -38,7 +39,7 @@ class UpdateProfilePatientsView extends GetView<UpdateProfilePatientsController>
 LayoutPatientsAppController layout=LayoutPatientsAppController();
 layout.changeValueOfIndex(3);
                     loginController.moveBetweenPages('LayoutPatientsAppView');
-                  },child: layoutPatientsAppController.initLang==Locale("ar")?Icon(IconBroken.Arrow___Right_2,color: Colors.black,):Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
+                  },child: layoutPatientsAppController.initLang==const Locale("ar")?const Icon(IconBroken.Arrow___Right_2,color: Colors.black,):const Icon(IconBroken.Arrow___Left_2,color: Colors.black,)),
                   CustomSizeBox(0,width: 20,),
 
                   CustomText(Colors.black, 18, FontWeight.w600, "Edit Profile".tr),
@@ -81,22 +82,41 @@ layout.changeValueOfIndex(3);
                                 alignment: AlignmentDirectional.topEnd,
                                 children: [
                                   Container(
-                                    width:double.infinity,
+                                    width: double.infinity,
                                     height: 200,
-                                    decoration:   BoxDecoration(
 
-                                      image: DecorationImage(image:controller.coverImage == null
-                                          ? NetworkImage('${patientsAccountModel?.cover}')
-                                          : FileImage(controller.coverImage!) as ImageProvider,fit: BoxFit.cover),
-                                    ),
+                                    child: controller.coverImage == null
+                                        ? CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl: "${patientsAccountModel?.cover}",
+                                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                      const SizedBox(width: double.infinity,height: 200),
+                                      errorWidget: (context, url, error) =>  const SizedBox(width: double.infinity,height: 200),
+                                    ):Image.file(controller.coverImage!,fit: BoxFit.cover,),
                                   ),
+
+
+
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: customCircleAvatar(18,color:Colors.blue,widget: const Icon(IconBroken.Camera),onTap: (){
-                                      controller.getCoverImage(name.text,phone.text,bio.text);
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        controller.getCoverImage(
+                                            name.text, phone.text, bio.text);
+                                      },
+    child:
+                                      Container(
+                                        height: 40,width: 40,
+                                        child:  const Icon(IconBroken.Camera,color: Colors.white,),
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.blue
+                                        ),
+                                      ),
 
-                                    }),
                                   ),
+                                  ),
+
 
                                 ],
                               ),0
@@ -108,32 +128,51 @@ layout.changeValueOfIndex(3);
                                   alignment: AlignmentDirectional.bottomEnd,
                                   children: [
                                     GestureDetector(
-                                      onTap: (){
+                                      onTap: () {
                                         controller.getProfileImage(name.text,phone.text,bio.text);
 
                                       },
                                       child: Stack(
                                         alignment: AlignmentDirectional.center,
                                         children: [
-                                          customCircleAvatar(62,color:Colors.white),
-
-                                          CircleAvatar(
-                                            radius: 64,
-                                            backgroundColor:
-                                            Theme.of(context).scaffoldBackgroundColor,
-                                            child: CircleAvatar(
-                                              radius: 60,
-                                              backgroundImage: controller.profileImage == null
-                                                  ? NetworkImage('${patientsAccountModel?.image}')
-                                                  : FileImage(controller.profileImage!) as ImageProvider,
+                                          Container(
+                                            width: 125,
+                                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                                            height: 125,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.white
                                             ),
+
                                           ),
+                                          Container(
+                                            width: 120,
+                                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                                            height: 120,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle
+                                            ),
+                                            child: controller
+                                                .profileImage ==
+                                                null? CachedNetworkImage(
+                                              fit: BoxFit.cover,
+                                              imageUrl: "${patientsAccountModel?.image}",
+                                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                              const SizedBox(width: double.infinity,height: 200),
+                                              errorWidget: (context, url, error) =>  const SizedBox(width: double.infinity,height: 200),
+                                            ):Image.file(controller
+                                                .profileImage!,fit: BoxFit.cover,),
+
+                                          ),
+
                                         ],
                                       ),
                                     ),
-
                                   ],
-                                ),500
+                                ),
+
+
+                                500
                             ),
                           )
                         ],

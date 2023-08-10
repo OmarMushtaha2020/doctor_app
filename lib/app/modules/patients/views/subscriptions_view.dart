@@ -80,17 +80,25 @@ class SubscriptionsView extends GetView<LayoutPatientsAppController> {
                           ),
                           const Spacer(),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: customCircleAvatar(
-                                20,
-                                color: controller.subsriptions[index].like==false?Colors.grey:Colors.blue,
-                                widget:       const Icon(IconBroken.Star,color: Colors.white,),
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
                                 onTap: (){
                                   controller.updateCategories(controller.subsriptions[index].idOfMyCategories,index);
-                                  print("omar");
-                                }
-                            ),
+
+                                },
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:   controller.subsriptions[index].like==false?Colors.grey:Colors.blue,
+                                  ),
+                                  child: const Icon(IconBroken.Star,color: Colors.white,),
+                                ),
+                              )
+
                           ),
+
 
 
                         ],

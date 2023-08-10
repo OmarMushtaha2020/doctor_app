@@ -85,14 +85,22 @@ class HomePatientsView extends GetView<LayoutPatientsAppController> {
                           const Spacer(),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: customCircleAvatar(
-                              20,
-                              color: controller.categories[index].like==false?Colors.grey:Colors.blue,
-                              widget:       const Icon(IconBroken.Star,color: Colors.white,),
-onTap: (){
-                                controller.updateCategories(controller.categories[index].idOfMyCategories,index);
-}
-                            ),
+                            child: GestureDetector(
+                              onTap: (){
+                            controller.updateCategories(controller.categories[index].idOfMyCategories,index);
+
+                            },
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color:  controller.categories[index].like==false?Colors.grey:Colors.blue,
+                                ),
+                                child: const Icon(IconBroken.Star,color: Colors.white,),
+                              ),
+                            )
+
                           ),
 
                         ],

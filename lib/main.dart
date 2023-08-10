@@ -66,8 +66,8 @@ class MyApp extends StatelessWidget {
             Get.find<LayoutPatientsAppController>();
 
         print("The lang is ${layoutPatientsAppController.initLang}");
-        layoutPatientsAppController.deleteAppDir();
-        layoutPatientsAppController.deleteCacheDir();
+        // layoutPatientsAppController.deleteAppDir();
+        // layoutPatientsAppController.deleteCacheDir();
 
 
         return GetMaterialApp(
