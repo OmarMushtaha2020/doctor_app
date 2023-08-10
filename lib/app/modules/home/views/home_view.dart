@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_app/app/modules/home/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:doctor_app/app/modules/home/controllers/add_article_controller.dart';
@@ -145,28 +146,40 @@ class HomeView extends GetView<LayoutController> {
                                     ? Positioned(
                                         left: 10,
                                         top: 20,
-                                        child: customCircleAvatar(20,
-                                            widget: const Icon(
-                                              IconBroken.Delete,
-                                              color: Colors.white,
-                                            ),
-                                            color: Colors.blue, onTap: () {
-                                          controller.deleteCategories(
-                                              controller.categories[index].id,index);
-                                        }),
+                                        child:
+                                        GestureDetector(
+                                          onTap: (){
+                                            controller.deleteCategories(
+                                                controller.categories[index].id,index);
+                                          },
+                                          child: Container(decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                              color: Colors.blue
+
+                                          ),width: 40,height: 40,child: const Icon(
+                                            IconBroken.Delete,
+
+                                            color: Colors.white,
+                                          ),),
+                                        ),
                                       )
                                     : Positioned(
                                         right: 10,
                                         top: 20,
-                                        child: customCircleAvatar(20,
-                                            widget: const Icon(
-                                              IconBroken.Delete,
-                                              color: Colors.white,
-                                            ),
-                                            color: Colors.blue, onTap: () {
-                                          controller.deleteCategories(
-                                              controller.categories[index].id,index);
-                                        }),
+                                        child:
+                                        GestureDetector(
+                                          onTap: (){
+                                            controller.deleteCategories(
+                                                controller.categories[index].id,index);
+                                          },
+                                          child: Container(decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.blue
+                                          ),width: 40,height: 40,child: const Icon(
+                                            IconBroken.Delete,
+                                            color: Colors.white,
+                                          ),),
+                                        ),
                                       )
                                 : Container(),
                           ],

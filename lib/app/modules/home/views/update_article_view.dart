@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -50,18 +51,27 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
                             width: double.infinity,
                             fit: BoxFit.cover,
                           )
-                        : Image(
-                            image: NetworkImage("${argument['image']}"),
-                            height: 400,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
+                        :
+                    CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      height: 400,
+                      width: double.infinity,
+                      imageUrl: "${argument['image']}",
+                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                          Container(height: 400,width: double.infinity,decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),),
+                      errorWidget: (context, url, error) =>           Container(height: 400,width: double.infinity,decoration: const BoxDecoration(
+                        color: Colors.white,
+                      ),),
+                    ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 60),
                       child: Row(
                         children: [
-                          layoutPatientsAppController.initLang == Locale("ar")
+                          layoutPatientsAppController.initLang == const Locale("ar")
                               ? GestureDetector(
                                   onTap: () {
                                     login.moveBetweenPages('AddArticleView',
@@ -100,7 +110,8 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
                                     child: const Icon(IconBroken.Arrow___Left_2),
                                   ),
                                 ),
-                          Spacer(),
+                          const Spacer(),
+
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: customCircleAvatar(18,
@@ -147,9 +158,9 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
                               },
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                contentPadding: EdgeInsets.only(left: 15),
+                                contentPadding: const EdgeInsets.only(left: 15),
                                 hintText: "Article details".tr,
-                                hintStyle: TextStyle(color: Color(0xFFeb6b7bb)),
+                                hintStyle: const TextStyle(color: Color(0xFFeb6b7bb)),
                               ),
                             ),
                           ),

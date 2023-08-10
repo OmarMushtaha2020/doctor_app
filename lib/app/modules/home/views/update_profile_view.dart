@@ -132,16 +132,23 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                                     ):Image.file(controller
                                         .coverImage!,fit: BoxFit.cover,),
                                   ),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.all(8.0),
-                                  //   child: customCircleAvatar(18,
-                                  //       color: Colors.blue,
-                                  //       widget: const Icon(IconBroken.Camera),
-                                  //       onTap: () {
-                                  //     controller.getCoverImage(
-                                  //         name.text, phone.text, bio.text);
-                                  //   }),
-                                  // ),
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: GestureDetector(
+                                       onTap: (){
+                                         controller.getCoverImage(
+                                             name.text, phone.text, bio.text);
+                                       },
+                                       child: Container(
+                                         height: 40,width: 40,
+                                         child:  Icon(IconBroken.Camera,color: Colors.white,),
+                                         decoration: BoxDecoration(
+                                           shape: BoxShape.circle,
+                                           color: Colors.blue
+                                         ),
+                                       ),
+                                     ),
+                                   ),
                                 ],
                               ),
                               0),
