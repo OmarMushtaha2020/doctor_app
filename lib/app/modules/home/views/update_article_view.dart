@@ -111,15 +111,26 @@ class UpdateArticleView extends GetView<UpdateArticleController> {
                                   ),
                                 ),
                           const Spacer(),
-
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: customCircleAvatar(18,
-                                color: Colors.blue,
-                                widget: const Icon(IconBroken.Camera), onTap: () {
-                              controller.getImage();
-                            }),
+                            child: GestureDetector(
+                              onTap: (){
+                                controller.getImage();
+
+                              },
+                              child:
+                              Container(
+                                height: 40,width: 40,
+                                child:  Icon(IconBroken.Camera,color: Colors.white,),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.blue
+                                ),
+                              ),
+                            ),
                           ),
+
+
                         ],
                       ),
                     ),

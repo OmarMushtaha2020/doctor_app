@@ -127,7 +127,7 @@ if(index==3){
 
   List<CategoriesModel> categories = [];
 
-  void getAllCategories() {
+  Future<void> getAllCategories() async {
     categories = [];
     FirebaseFirestore.instance.collection("Categories").get().then((value) {
       value.docs.forEach((element) {

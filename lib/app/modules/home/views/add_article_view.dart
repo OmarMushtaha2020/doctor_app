@@ -1,3 +1,4 @@
+import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

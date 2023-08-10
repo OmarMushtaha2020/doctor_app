@@ -139,7 +139,8 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                                          controller.getCoverImage(
                                              name.text, phone.text, bio.text);
                                        },
-                                       child: Container(
+                                       child:
+                                       Container(
                                          height: 40,width: 40,
                                          child:  Icon(IconBroken.Camera,color: Colors.white,),
                                          decoration: BoxDecoration(

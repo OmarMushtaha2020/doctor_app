@@ -66,7 +66,7 @@ class ChatView extends GetView<LayoutController> {
                                               "cover": patients[index].cover,
                                               "name": patients[index].name,
                                             });
-                                      },child: Container(clipBehavior: Clip.antiAliasWithSaveLayer,width: 50,height: 50,decoration: const BoxDecoration(shape: BoxShape.circle),child:  CachedNetworkImage(imageUrl: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                                      },child: Container(clipBehavior: Clip.antiAliasWithSaveLayer,width: 50,height: 50,decoration: const BoxDecoration(shape: BoxShape.circle),child:  CachedNetworkImage(imageUrl: "${patients[index].cover}",
                                         fit: BoxFit.cover,
                                         progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 85,width: 85,color: Colors.white),
                                         errorWidget: (context, url, error) => Container(height: 85,width: 85,color: Colors.white),
