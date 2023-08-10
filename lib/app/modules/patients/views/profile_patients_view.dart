@@ -59,12 +59,14 @@ Container(height: 125,width: 125,decoration: const BoxDecoration(
                                     decoration: const BoxDecoration(
                                     color:
                                     Colors.white,shape: BoxShape.circle
-                                ),child:                                 CachedNetworkImage(imageUrl: "${patientsAccountModel?.cover}",
+                                ),child:
+                                  CachedNetworkImage(imageUrl: "${patientsAccountModel?.cover}",
                                   fit: BoxFit.cover,
                                   progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 200,width: double.infinity,color: Colors.white),
                                   errorWidget: (context, url, error) => Container(height: 200,width: double.infinity,color: Colors.white),
 
-                                ),),
+                                ),
+                                ),
 
 
                               ],

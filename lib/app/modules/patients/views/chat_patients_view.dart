@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -51,14 +52,16 @@ class ChatPatientsView extends GetView<LayoutPatientsAppController> {
                         clipBehavior: Clip.none,
                         alignment: AlignmentDirectional.bottomEnd,
                         children: [
-                          customCircleAvatar(28,color:Colors.white,
-                              image:"${controller.doctors[index].cover}",
-                            onTap: (){
-                              GroupChatPatientsController groupChatPatientsController =GroupChatPatientsController();
-                              groupChatPatientsController.getMessages(receiverId:  controller.doctors[index].token);
+                          GestureDetector(onTap: (){
+                            GroupChatPatientsController groupChatPatientsController =GroupChatPatientsController();
+                            groupChatPatientsController.getMessages(receiverId:  controller.doctors[index].token);
+                          },child: Container(clipBehavior: Clip.antiAliasWithSaveLayer,width: 50,height: 50,decoration: const BoxDecoration(shape: BoxShape.circle),child:  CachedNetworkImage(imageUrl: "${controller.doctors[index].cover}",
+                            fit: BoxFit.cover,
+                            progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 85,width: 85,color: Colors.white),
+                            errorWidget: (context, url, error) => Container(height: 85,width: 85,color: Colors.white),
 
-                            }
-                          ),
+                          ),)),
+
                           Stack(
                             alignment: AlignmentDirectional.center,
                             children: [

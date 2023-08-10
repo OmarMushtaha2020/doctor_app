@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -23,7 +24,7 @@ class SubscriptionsView extends GetView<LayoutPatientsAppController> {
           body:  controller.subsriptions.length==0? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SpinKitFadingCube(
+              const SpinKitFadingCube(
                 color: Colors.blue,
 
                 size: 50.0,
@@ -55,9 +56,13 @@ class SubscriptionsView extends GetView<LayoutPatientsAppController> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(height: 85,width: 85,decoration: BoxDecoration(
+                            child: Container(clipBehavior: Clip.antiAliasWithSaveLayer,height: 85,width: 85,decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),color: Colors.white,
-                              image:  DecorationImage(image: NetworkImage("${controller.subsriptions[index].imageCategories}"),fit: BoxFit.cover),
+                            ),child:  CachedNetworkImage(imageUrl: "${controller.subsriptions[index].imageCategories}",
+                              fit: BoxFit.cover,
+                              progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 85,width: 85,color: Colors.white),
+                              errorWidget: (context, url, error) => Container(height: 85,width: 85,color: Colors.white),
+
                             ),),
                           ),
                           CustomSizeBox(0,width: 20,),

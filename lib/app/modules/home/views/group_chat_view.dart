@@ -66,72 +66,90 @@ class GroupChatView extends GetView<GroupChatController> {
               body: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    controller.messages.length == 0
-                        ? const Center(child: Text("Never communicated before"))
-                        : Expanded(
-                            child: ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                var message = controller.messages[index];
-                                if (tokenOfDoctors == message.senderId) {
-                                  return buildMyMessage(message);
-                                }
+                    Column(
+                      children: [
+                       Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    ListView.separated(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      physics: const BouncingScrollPhysics(),
+                                      itemBuilder: (BuildContext context, int index) {
+                                        var message = controller.messages[index];
+                                        if (tokenOfDoctors == message.senderId) {
+                                          return buildMyMessage(message);
+                                        }
 
-                                return buildMessage(message);
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const SizedBox(
-                                height: 15,
+                                        return buildMessage(message);
+                                      },
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              const SizedBox(
+                                        height: 15,
+                                      ),
+                                      itemCount: controller.messages.length,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              itemCount: controller.messages.length,
+
                             ),
-                          ),
-                 const Spacer(),
-                    Container(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      height: 50,
-                      padding: const EdgeInsetsDirectional.only(
-                        start: 15,
-                        end: 0,
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.grey,
-                          )),
-                      child: TextFormField(
-                        maxLines: 999,
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Aa',
-                          suffixIcon: MaterialButton(
-                            height: 10,
-                            padding: EdgeInsets.zero,
-                            onPressed: () async {
-                              controller.sendMessage(
-                                receiverId: argument['token'],
-                                dateTime: FieldValue.serverTimestamp(),
-                                text: messageController.text,
-                              );
-                            },
-                            color: Colors.blue,
-                            elevation: 10,
-                            minWidth: 1,
-                            child: const Icon(
-                              Icons.send,
-                              color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Container(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            height: 50,
+                            padding: const EdgeInsetsDirectional.only(
+                              start: 15,
+                              end: 0,
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                )),
+                            child: TextFormField(
+                              maxLines: 999,
+                              controller: messageController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Aa',
+                                suffixIcon: MaterialButton(
+                                  height: 10,
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () async {
+                                    controller.sendMessage(
+                                      receiverId: argument['token'],
+                                      dateTime: FieldValue.serverTimestamp(),
+                                      text: messageController.text,
+                                    );
+                                  },
+                                  color: Colors.blue,
+                                  elevation: 10,
+                                  minWidth: 1,
+                                  child: const Icon(
+                                    Icons.send,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+
+                      ],),
+                    controller.messages.isEmpty?                    const Center(child: Text("Never communicated before")):Container(),
+
                   ],
                 ),
+
+
+
               ),
           );
         },
