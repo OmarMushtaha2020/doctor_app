@@ -46,7 +46,6 @@ class LayoutController extends GetxController {
 
   @override
   void onReady() {
-
     super.onReady();
   }
 
@@ -57,6 +56,15 @@ class LayoutController extends GetxController {
 
   Future<void> changeValueOfIndex(value) async {
     index = value;
+if(index==0){
+  getAllCategories();
+}
+if(index==1){
+  getAllAccountPatients();
+}
+if(index==3){
+  getDoctorsData();
+}
     bottomSheet = false;
 
     update();
@@ -83,7 +91,7 @@ class LayoutController extends GetxController {
         .doc(tokenOfDoctors)
         .get()
         .then((value) {
-      doctorAccountModel = DoctorAccountModel.formJson(value.data()!);
+      doctorAccountModel = DoctorAccountModel.formJson(value.data()??{});
       print("The User is${doctorAccountModel?.name.toString()}");
       update();
     });

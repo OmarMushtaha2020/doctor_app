@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -47,17 +48,15 @@ class ChatView extends GetView<LayoutController> {
                                     clipBehavior: Clip.none,
                                     alignment: AlignmentDirectional.bottomEnd,
                                     children: [
-                                      customCircleAvatar(28,
-                                          color: Colors.white,
-                                          image: "${patients[index].cover}",
-                                          onTap: () {
+                                      GestureDetector(onTap: (){
+
                                         GroupChatController group =
-                                            GroupChatController();
+                                        GroupChatController();
                                         final groupChat = Get.lazyPut(
-                                            () => GroupChatController());
+                                                () => GroupChatController());
                                         GroupChatController
-                                            groupChatController =
-                                            GroupChatController();
+                                        groupChatController =
+                                        GroupChatController();
                                         groupChatController.getMessages(
                                             receiverId: patients[index].token);
                                         loginController.moveBetweenPages(
@@ -67,14 +66,30 @@ class ChatView extends GetView<LayoutController> {
                                               "cover": patients[index].cover,
                                               "name": patients[index].name,
                                             });
-                                      }),
+                                      },child: Container(clipBehavior: Clip.antiAliasWithSaveLayer,width: 50,height: 50,decoration: const BoxDecoration(shape: BoxShape.circle),child:  CachedNetworkImage(imageUrl: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+                                        fit: BoxFit.cover,
+                                        progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 85,width: 85,color: Colors.white),
+                                        errorWidget: (context, url, error) => Container(height: 85,width: 85,color: Colors.white),
+
+                                      ),)),
+
                                       Stack(
                                         alignment: AlignmentDirectional.center,
                                         children: [
-                                          customCircleAvatar(10,
-                                              color: Colors.white),
-                                          customCircleAvatar(7,
-                                              color: Colors.blue),
+                                          Container(height: 20,width: 20,decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.white,
+
+
+                                          ),),
+
+                                          Container(height:15,width: 15,decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.blue,
+
+
+                                          ),),
+
                                         ],
                                       )
                                     ],

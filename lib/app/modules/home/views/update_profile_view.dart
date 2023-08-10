@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_app/app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -120,27 +121,27 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                                   Container(
                                     width: double.infinity,
                                     height: 200,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: controller.coverImage == null
-                                              ? NetworkImage(
-                                                  '${doctorAccountModel?.cover}')
-                                              : FileImage(
-                                                      controller.coverImage!)
-                                                  as ImageProvider,
-                                          fit: BoxFit.cover),
-                                    ),
+
+                                    child: controller.coverImage == null
+                                        ? CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl: "${doctorAccountModel?.cover}",
+                                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                      const SizedBox(width: double.infinity,height: 200),
+                                      errorWidget: (context, url, error) =>  const SizedBox(width: double.infinity,height: 200),
+                                    ):Image.file(controller
+                                        .coverImage!,fit: BoxFit.cover,),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: customCircleAvatar(18,
-                                        color: Colors.blue,
-                                        widget: const Icon(IconBroken.Camera),
-                                        onTap: () {
-                                      controller.getCoverImage(
-                                          name.text, phone.text, bio.text);
-                                    }),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: customCircleAvatar(18,
+                                  //       color: Colors.blue,
+                                  //       widget: const Icon(IconBroken.Camera),
+                                  //       onTap: () {
+                                  //     controller.getCoverImage(
+                                  //         name.text, phone.text, bio.text);
+                                  //   }),
+                                  // ),
                                 ],
                               ),
                               0),
@@ -158,24 +159,36 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                                       child: Stack(
                                         alignment: AlignmentDirectional.center,
                                         children: [
-                                          customCircleAvatar(62,
-                                              color: Colors.white),
-                                          CircleAvatar(
-                                            radius: 64,
-                                            backgroundColor: Theme.of(context)
-                                                .scaffoldBackgroundColor,
-                                            child: CircleAvatar(
-                                              radius: 60,
-                                              backgroundImage: controller
-                                                          .profileImage ==
-                                                      null
-                                                  ? NetworkImage(
-                                                      '${doctorAccountModel?.image}')
-                                                  : FileImage(controller
-                                                          .profileImage!)
-                                                      as ImageProvider,
+                                          Container(
+                                            width: 125,
+                                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                                            height: 125,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.white
                                             ),
+
                                           ),
+                                          Container(
+                                            width: 120,
+                                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                                            height: 120,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle
+                                            ),
+                                            child: controller
+                                                .profileImage ==
+                                                null? CachedNetworkImage(
+                                              fit: BoxFit.cover,
+                                              imageUrl: "${doctorAccountModel?.image}",
+                                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                              const SizedBox(width: double.infinity,height: 200),
+                                              errorWidget: (context, url, error) =>  const SizedBox(width: double.infinity,height: 200),
+                                            ):Image.file(controller
+                                                .profileImage!,fit: BoxFit.cover,),
+
+                                          ),
+
                                         ],
                                       ),
                                     ),

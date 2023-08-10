@@ -34,15 +34,15 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                 clipBehavior: Clip.none,
                 children: [
                   CustomAnimation(
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         height: 200,
                         child:  CachedNetworkImage(
                           fit: BoxFit.cover,
                           imageUrl: "${doctorAccountModel?.image}",
                           progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            Container(width: double.infinity,height: 200),
-                          errorWidget: (context, url, error) =>  Container(width: double.infinity,height: 200),
+                            const SizedBox(width: double.infinity,height: 200),
+                          errorWidget: (context, url, error) =>  const SizedBox(width: double.infinity,height: 200),
                         ),
 
                       ),
@@ -53,11 +53,33 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                         Stack(
                           alignment: AlignmentDirectional.center,
                           children: [
-                            customCircleAvatar(62, color: Colors.white),
-                            customCircleAvatar(60,
-                                color: Colors.white,
+                            Container(
+                              width: 125,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              height: 125,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                color: Colors.white
+                              ),
 
-                                image: "${doctorAccountModel?.cover}"),
+                            ),
+                            Container(
+                              width: 120,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              height: 120,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle
+                              ),
+                              child:  CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: "${doctorAccountModel?.cover}",
+                                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                const SizedBox(width: double.infinity,height: 200),
+                                errorWidget: (context, url, error) =>  const SizedBox(width: double.infinity,height: 200),
+                              ),
+
+                            ),
+
                           ],
                         ),
                         500),
@@ -88,7 +110,7 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                             0,
                             width: 5,
                           ),
-                          customOutlineButtom(Icon(IconBroken.Logout), () {
+                          customOutlineButtom(const Icon(IconBroken.Logout), () {
                             GetStorage().remove("token").then((value) {
                               loginController.moveBetweenPages(
                                   'PageSelectionDoctorOrPatient');
@@ -99,7 +121,7 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                             0,
                             width: 5,
                           ),
-                          customOutlineButtom(Icon(IconBroken.Edit), () {
+                          customOutlineButtom(const Icon(IconBroken.Edit), () {
                             controller.getDoctorsData();
                             loginController
                                 .moveBetweenPages('UpdateProfileView');
@@ -127,7 +149,7 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                             0,
                             width: 5,
                           ),
-                          customOutlineButtom(Icon(IconBroken.Edit), () {
+                          customOutlineButtom(const Icon(IconBroken.Edit), () {
                             controller.getDoctorsData();
                             loginController
                                 .moveBetweenPages('UpdateProfileView');
@@ -136,7 +158,7 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                             0,
                             width: 5,
                           ),
-                          customOutlineButtom(Icon(IconBroken.Logout), () {
+                          customOutlineButtom(const Icon(IconBroken.Logout), () {
                             GetStorage().remove("token").then((value) {
                               loginController.moveBetweenPages(
                                   'PageSelectionDoctorOrPatient');
@@ -166,7 +188,7 @@ Widget customCircleAvatar(double raduis,
           child: widget,
           radius: raduis,
           backgroundColor: color,
-          backgroundImage: NetworkImage(image?? ""),
+          backgroundImage: NetworkImage("$image"),
         ));
 
 Widget customOutlineButtom(Widget widget, void Function() onPressed) =>

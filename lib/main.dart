@@ -60,22 +60,15 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        Get.put(LayoutPatientsAppController());
-Get.put(LayoutController());
+        Get.lazyPut<LayoutPatientsAppController>(() => LayoutPatientsAppController());
+
         LayoutPatientsAppController layoutPatientsAppController =
             Get.find<LayoutPatientsAppController>();
-        LayoutController layoutController =
-        Get.find<LayoutController>();
+
         print("The lang is ${layoutPatientsAppController.initLang}");
         layoutPatientsAppController.deleteAppDir();
         layoutPatientsAppController.deleteCacheDir();
-        layoutPatientsAppController.getPatientsData();
-        layoutPatientsAppController.getAllCategories();
-        layoutPatientsAppController.getAllAccountDoctors();
-        layoutPatientsAppController.getAllSubsriptions();
-        layoutController.getAllCategories();
-        layoutController.getAllAccountPatients();
-        layoutController.getDoctorsData();
+
 
         return GetMaterialApp(
 
