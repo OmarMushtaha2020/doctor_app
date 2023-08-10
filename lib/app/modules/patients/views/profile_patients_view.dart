@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -34,10 +35,13 @@ class ProfilePatientsView extends GetView <LayoutPatientsAppController>{
                           Container(
                             width:double.infinity,
                             height: 200,
-                            decoration:   BoxDecoration(
+                            child: CachedNetworkImage(imageUrl: "${patientsAccountModel?.cover}",
+                              fit: BoxFit.cover,
+                              progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 200,width: double.infinity,color: Colors.white),
+                              errorWidget: (context, url, error) => Container(height: 200,width: double.infinity,color: Colors.white),
 
-                              image: DecorationImage(image: NetworkImage('${patientsAccountModel?.cover}'),fit: BoxFit.cover),
                             ),
+
                           ),0
                       ),
                       Positioned(
@@ -45,9 +49,23 @@ class ProfilePatientsView extends GetView <LayoutPatientsAppController>{
                         child: CustomAnimation(
                             Stack(
                               alignment: AlignmentDirectional.center,
-                              children: [                    customCircleAvatar(62,color:Colors.white),
+                              children: [
+Container(height: 125,width: 125,decoration: const BoxDecoration(
+  color:
+    Colors.white,shape: BoxShape.circle
+),),
 
-                                customCircleAvatar(60,color:Colors.white,image:"${patientsAccountModel?.image}"),
+                                Container(clipBehavior: Clip.antiAliasWithSaveLayer,height: 120,width: 120,
+                                    decoration: const BoxDecoration(
+                                    color:
+                                    Colors.white,shape: BoxShape.circle
+                                ),child:                                 CachedNetworkImage(imageUrl: "${patientsAccountModel?.cover}",
+                                  fit: BoxFit.cover,
+                                  progressIndicatorBuilder: (context, url, downloadProgress) =>Container(height: 200,width: double.infinity,color: Colors.white),
+                                  errorWidget: (context, url, error) => Container(height: 200,width: double.infinity,color: Colors.white),
+
+                                ),),
+
 
                               ],
                             ),500
