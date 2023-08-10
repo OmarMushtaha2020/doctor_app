@@ -1,3 +1,4 @@
+import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:doctor_app/shared/locale/locale.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -59,15 +60,22 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        Get.lazyPut<LayoutPatientsAppController>(
-          () => LayoutPatientsAppController(),
-        );
-
+        Get.put(LayoutPatientsAppController());
+Get.put(LayoutController());
         LayoutPatientsAppController layoutPatientsAppController =
             Get.find<LayoutPatientsAppController>();
+        LayoutController layoutController =
+        Get.find<LayoutController>();
         print("The lang is ${layoutPatientsAppController.initLang}");
         layoutPatientsAppController.deleteAppDir();
         layoutPatientsAppController.deleteCacheDir();
+        layoutPatientsAppController.getPatientsData();
+        layoutPatientsAppController.getAllCategories();
+        layoutPatientsAppController.getAllAccountDoctors();
+        layoutPatientsAppController.getAllSubsriptions();
+        layoutController.getAllCategories();
+        layoutController.getAllAccountPatients();
+        layoutController.getDoctorsData();
 
         return GetMaterialApp(
 

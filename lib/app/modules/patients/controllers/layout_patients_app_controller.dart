@@ -130,10 +130,7 @@ update();
 
   @override
   void onReady() {
-    getAllCategories();
-    getAllAccountDoctors();
-    getAllSubsriptions();
-getPatientsData();
+
     super.onReady();
   }
 

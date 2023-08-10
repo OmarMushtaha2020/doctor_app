@@ -46,9 +46,6 @@ class LayoutController extends GetxController {
 
   @override
   void onReady() {
-    getAllAccountPatients();
-    getAllCategories();
-    getDoctorsData();
 
     super.onReady();
   }
