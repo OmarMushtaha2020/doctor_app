@@ -87,8 +87,12 @@ print("my id is$id");
         categories[index].like=false;
         update();
         pushNotification("${patientsAccountModel?.name} canceled his admiration of${categories[index].nameCategories}").then((value) {
-          MessageNotification messageNotification =MessageNotification(patientsAccountModel?.name,"canceled his admiration of${categories[index].nameCategories}");
-          FirebaseFirestore.instance.collection("onMessage").add(messageNotification.toMap());
+          MessageNotification messageNotification =MessageNotification(patientsAccountModel?.name,"canceled his admiration of${categories[index].nameCategories}","");
+          FirebaseFirestore.instance.collection("onMessage").add(messageNotification.toMap()).then((value) {
+            FirebaseFirestore.instance.collection("onMessage").doc(value.id).update({"id":value.id});
+        update();
+          });
+          update();
         });
 if(subsriptions.isNotEmpty){
   subsriptions.removeAt(index);
@@ -102,8 +106,12 @@ if(subsriptions.isNotEmpty){
       if(value.data()?['like']==false){
         categories[index].like=true;
         pushNotification("${patientsAccountModel?.name} Like of${categories[index].nameCategories}").then((value){
-          MessageNotification messageNotification =MessageNotification(patientsAccountModel?.name," Like of${categories[index].nameCategories}");
-          FirebaseFirestore.instance.collection("onMessage").add(messageNotification.toMap());
+          MessageNotification messageNotification =MessageNotification(patientsAccountModel?.name," Like of${categories[index].nameCategories}","");
+          FirebaseFirestore.instance.collection("onMessage").add(messageNotification.toMap()).then((value) {
+            FirebaseFirestore.instance.collection("onMessage").doc(value.id).update({"id":value.id});
+
+          });
+          update();
         });
         update();
         FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).update({"like":true,"idOfPatients":tokenOfPatients}).then((value) {

@@ -91,7 +91,11 @@ class LayoutController extends GetxController {
     });
     update();
   }
-
+deleteMessageNotification(id,index){
+  onMessageNotification.removeAt(index);
+  FirebaseFirestore.instance.collection("onMessage").doc(id).delete();
+  update();
+}
   Future<void> getAllAccountPatients() async {
     patients = [];
     FirebaseFirestore.instance.collection("patients").get().then((value) {

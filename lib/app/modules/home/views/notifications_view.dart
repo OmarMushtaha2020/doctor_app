@@ -67,7 +67,9 @@ class NotificationsView extends GetView {
                           ],
                         ),
                         const Spacer(),
-                        const Icon(Icons.cancel_outlined)
+                        GestureDetector(onTap: (){
+                          controller.deleteMessageNotification(controller.onMessageNotification[index].id, index);
+                        },child: const Icon(Icons.cancel_outlined))
                       ],
                     ),
                   ),
