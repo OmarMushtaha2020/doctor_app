@@ -1,4 +1,6 @@
+import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:doctor_app/common_widget/custom_size_box.dart';
@@ -10,10 +12,23 @@ class NotificationsView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.separated(
-          padding: EdgeInsets.zero,
-          itemBuilder: (context, index) => Padding(
+    return GetBuilder<LayoutController>(
+      init:LayoutController() ,builder: (controller){
+        return  Scaffold(
+          body: controller.onMessageNotification.length==0?            Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SpinKitFadingCube(
+                color: Colors.blue,
+                size: 50.0,
+              ),
+              CustomSizeBox(30),
+              CustomText(Colors.black, 15, FontWeight.w600,
+                  "There is No Notification Message")
+            ],
+          ): ListView.separated(
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   height: 100,
@@ -46,9 +61,9 @@ class NotificationsView extends GetView {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomText(Colors.black, 17, FontWeight.w600,
-                                "Darlene Steward"),
+                                "${controller.onMessageNotification[index].name}"),
                             CustomText(Colors.grey, 14, FontWeight.w400,
-                                "Pls take a look at the images."),
+                                "${controller.onMessageNotification[index].body}"),
                           ],
                         ),
                         const Spacer(),
@@ -58,8 +73,10 @@ class NotificationsView extends GetView {
                   ),
                 ),
               ),
-          separatorBuilder: (context, index) => CustomSizeBox(20),
-          itemCount: 20),
+              separatorBuilder: (context, index) => CustomSizeBox(20),
+              itemCount: controller.onMessageNotification.length),
+        );
+    },
     );
   }
 }

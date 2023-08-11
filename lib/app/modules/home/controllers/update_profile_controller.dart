@@ -34,6 +34,7 @@ class UpdateProfileController extends GetxController {
     required String name,
     required String phone,
     required String bio,
+    required String deviceToken,
     String? cover,
     String? image,
   }) {
@@ -44,8 +45,10 @@ class UpdateProfileController extends GetxController {
       doctorAccountModel?.token,
       doctorAccountModel?.password,
       bio,
+      tokenDevice:deviceToken,
       image ?? doctorAccountModel!.image,
       cover ?? doctorAccountModel!.cover,
+
     );
     LayoutController layoutController = LayoutController();
     FirebaseFirestore.instance

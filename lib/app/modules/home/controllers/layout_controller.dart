@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/app/data/on_message_notification_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:doctor_app/app/data/categories_model.dart';
@@ -28,7 +29,7 @@ class LayoutController extends GetxController {
   List screen = [
     HomeView(),
     ChatView(),
-    NotificationsView(),
+    const NotificationsView(),
     ProfileView(),
   ];
 
@@ -46,6 +47,10 @@ class LayoutController extends GetxController {
 
   @override
   void onReady() {
+    getAllCategories();
+    getDoctorsData();
+    getAllAccountPatients();
+    getAllMessageNotification();
     super.onReady();
   }
 
@@ -56,17 +61,34 @@ class LayoutController extends GetxController {
 
   Future<void> changeValueOfIndex(value) async {
     index = value;
-if(index==0){
-  getAllCategories();
-}
-if(index==1){
-  getAllAccountPatients();
-}
-if(index==3){
-  getDoctorsData();
-}
+    if (index == 0) {
+      getAllCategories();
+    }
+    if (index == 1) {
+      getAllAccountPatients();
+    }
+    if (index == 2) {
+      getAllMessageNotification();
+    }
+    if (index == 3) {
+      getDoctorsData();
+    }
     bottomSheet = false;
 
+    update();
+  }
+
+  List<MessageNotification> onMessageNotification = [];
+
+  getAllMessageNotification() {
+    onMessageNotification = [];
+    update();
+    FirebaseFirestore.instance.collection("onMessage").get().then((value) {
+      value.docs.forEach((element) {
+        onMessageNotification.add(MessageNotification.fromJson(element.data()));
+      });
+      update();
+    });
     update();
   }
 
@@ -91,7 +113,7 @@ if(index==3){
         .doc(tokenOfDoctors)
         .get()
         .then((value) {
-      doctorAccountModel = DoctorAccountModel.formJson(value.data()??{});
+      doctorAccountModel = DoctorAccountModel.formJson(value.data() ?? {});
       print("The User is${doctorAccountModel?.name.toString()}");
       update();
     });
@@ -147,72 +169,68 @@ if(index==3){
       categoriesModel = CategoriesModel(nameCategories, detailsCategories,
           imageCategories, false, tokenOfDoctors);
       categories..add(categoriesModel!);
-        FirebaseFirestore.instance
-            .collection("Categories")
-            .where("nameCategories", isEqualTo: nameCategories)
-            .get()
-            .then((value) {
-          if (value.docs.length == 0) {
+      FirebaseFirestore.instance
+          .collection("Categories")
+          .where("nameCategories", isEqualTo: nameCategories)
+          .get()
+          .then((value) {
+        if (value.docs.length == 0) {
+          FirebaseFirestore.instance
+              .collection("Categories")
+              .add(categoriesModel?.toMap() ?? {})
+              .then((values) {
             FirebaseFirestore.instance
                 .collection("Categories")
-                .add(categoriesModel?.toMap() ?? {})
-                .then((values) {
-
+                .doc(values.id)
+                .update({"id": values.id}).then((value) {
               FirebaseFirestore.instance
-                  .collection("Categories")
-                  .doc(values.id)
-                  .update({"id": values.id}).then((value) {
-                FirebaseFirestore.instance
-                    .collection("patients")
-                    .get()
-                    .then((value) {
-                  if (value.docs.length != 0) {
-                    value.docs.forEach((element) {
+                  .collection("patients")
+                  .get()
+                  .then((value) {
+                if (value.docs.length != 0) {
+                  value.docs.forEach((element) {
+                    update();
+
+                    print(value.docs.length);
+                    print("!");
+                    update();
+                    categoriesModel = CategoriesModel(
+                        nameCategories,
+                        detailsCategories,
+                        imageCategories,
+                        false,
+                        tokenOfDoctors,
+                        id: values.id);
+                    FirebaseFirestore.instance
+                        .collection('patients')
+                        .doc(element.data()['token'])
+                        .collection("myCategories")
+                        .add(categoriesModel?.toMap() ?? {})
+                        .then((value) {
                       update();
 
-                      print(value.docs.length);
-                      print("!");
-                      update();
-                      categoriesModel = CategoriesModel(
-                          nameCategories,
-                          detailsCategories,
-                          imageCategories,
-                          false,
-                          tokenOfDoctors,
-                          id: values.id);
                       FirebaseFirestore.instance
                           .collection('patients')
                           .doc(element.data()['token'])
                           .collection("myCategories")
-                          .add(categoriesModel?.toMap() ?? {})
-                          .then((value) {
+                          .doc(value.id)
+                          .update({"idOfMyCategories": value.id}).then((value) {
                         update();
-
-                        FirebaseFirestore.instance
-                            .collection('patients')
-                            .doc(element.data()['token'])
-                            .collection("myCategories")
-                            .doc(value.id)
-                            .update({"idOfMyCategories": value.id}).then(
-                                (value) {
-                          update();
-                        });
                       });
                     });
+                  });
 
-                    update();
-
-                  }
                   update();
-
-                });
+                }
+                update();
               });
-              print(values.id);
-              update();
-            }).catchError((error) {});
-          }
-        });
-        update();
+            });
+            print(values.id);
+            update();
+          }).catchError((error) {});
+        }
+      });
+      update();
     }
 
     update();
@@ -253,7 +271,7 @@ if(index==3){
     }).catchError((error) {});
   }
 
-  Future<void> deleteCategories(id,int index) async {
+  Future<void> deleteCategories(id, int index) async {
     categories.removeAt(index);
     FirebaseFirestore.instance
         .collection("Categories")
@@ -316,8 +334,6 @@ if(index==3){
       }
     });
   }
-
-
 }
 
 List<MessageModel> chats = [];

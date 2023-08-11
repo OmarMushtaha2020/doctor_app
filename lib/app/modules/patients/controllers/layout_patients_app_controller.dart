@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/app/data/on_message_notification_model.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:doctor_app/app/data/categories_model.dart';
@@ -13,6 +17,8 @@ import 'package:doctor_app/app/modules/patients/views/profile_patients_view.dart
 import 'package:doctor_app/app/modules/patients/views/subscriptions_view.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+
 dynamic tokenOfPatients='';
 var indexPatients = 0;
 bool value=false;
@@ -59,6 +65,7 @@ update();
     });
 
   }else{
+
     FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value){
       value.docs.forEach((element) {
         categories.add(CategoriesModel.fromJson(element.data()));
@@ -69,21 +76,35 @@ update();
   }
     update();
   }
+
   Future<void> updateCategories(id,index) async {
+
+  
+  
 print("my id is$id");
     FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).get().then((value){
       if(value.data()?['like']==true){
         categories[index].like=false;
         update();
+        pushNotification("${patientsAccountModel?.name} canceled his admiration of${categories[index].nameCategories}").then((value) {
+          MessageNotification messageNotification =MessageNotification(patientsAccountModel?.name,"canceled his admiration of${categories[index].nameCategories}");
+          FirebaseFirestore.instance.collection("onMessage").add(messageNotification.toMap());
+        });
+if(subsriptions.isNotEmpty){
+  subsriptions.removeAt(index);
+  update();
+}
 
-        subsriptions.removeAt(index);
-        update();
         FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).update({"like":false,"idOfPatients":tokenOfPatients}).then((value) {
 
         });
       }
       if(value.data()?['like']==false){
         categories[index].like=true;
+        pushNotification("${patientsAccountModel?.name} Like of${categories[index].nameCategories}").then((value){
+          MessageNotification messageNotification =MessageNotification(patientsAccountModel?.name," Like of${categories[index].nameCategories}");
+          FirebaseFirestore.instance.collection("onMessage").add(messageNotification.toMap());
+        });
         update();
         FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").doc(id).update({"like":true,"idOfPatients":tokenOfPatients}).then((value) {
 
@@ -92,7 +113,43 @@ print("my id is$id");
     });
     update();
   }
-Locale? initLang=GetStorage().read("lang")==null?Locale("${Get.deviceLocale!.languageCode}"): Locale("${GetStorage().read("lang")}");
+ Future<void> pushNotification(String word) async {
+  FirebaseFirestore.instance.collection("doctors").get().then((value) {
+    value.docs.forEach((element)async {
+      var data = {
+        'to' : "${element.data()['tokenDevice']}",
+        'notification' : {
+          'title' : 'doctor_app' ,
+          'body' : "word" ,
+          "sound": "jetsons_doorbell.mp3"
+        },
+        'android': {
+          'notification': {
+            'notification_count': 23,
+          },
+        },
+        'data' : {
+          "route": "layout"
+        },
+      };
+
+      await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          body: jsonEncode(data) ,
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization' : 'key=AAAAhDuI3ZY:APA91bG0zNB7U7NJe1xg9mJfVwnZs3TkdFLzRAgz9s1FDI5AkTKTaZ3biX4MQ9ac2eqHetr61m3vDl9YB55_o-8C54bpvt5wCMSXSSQOggor470Q2TAI33wXSrvvY1XJGUJtk34B-ZZY'
+          }
+      ).then((value){
+
+      }).onError((error, stackTrace){
+        print(error);
+
+      });
+    });
+  });
+
+  }
+Locale? initLang=GetStorage().read("lang")==null?Locale(Get.deviceLocale!.languageCode): Locale("${GetStorage().read("lang")}");
 changeValueOfLang(){
   initLang= Locale("${GetStorage().read("lang")}");
   update();
@@ -100,8 +157,8 @@ changeValueOfLang(){
 
 }
   void changeLang(String code){
-    Locale locale=Locale('$code');
-    GetStorage().write("lang","$code");
+    Locale locale=Locale(code);
+    GetStorage().write("lang",code);
     update();
     Get.updateLocale(locale).then((value) {
       changeValueOfLang();
@@ -130,7 +187,10 @@ update();
 
   @override
   void onReady() {
-
+getAllCategories();
+getAllAccountDoctors();
+getAllSubsriptions();
+getPatientsData();
     super.onReady();
   }
 

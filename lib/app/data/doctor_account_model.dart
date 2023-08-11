@@ -9,9 +9,9 @@ class DoctorAccountModel {
   dynamic password;
 
   dynamic token;
-
+  dynamic tokenDevice;
   DoctorAccountModel(this.name, this.email, this.phone, this.token,
-      this.password, this.bio, this.image, this.cover);
+      this.password, this.bio, this.image, this.cover,{this.tokenDevice});
 
   DoctorAccountModel.formJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -22,6 +22,7 @@ class DoctorAccountModel {
     bio = json['bio'];
     image = json['image'];
     cover = json['cover'];
+    tokenDevice=json['tokenDevice'];
   }
 
   Map<String, dynamic>? toMAp() {
@@ -34,6 +35,7 @@ class DoctorAccountModel {
       'bio': bio,
       'image': image,
       'cover': cover,
+      'tokenDevice':tokenDevice,
     };
   }
 }

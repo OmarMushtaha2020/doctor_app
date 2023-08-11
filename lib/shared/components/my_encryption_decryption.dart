@@ -1,4 +1,7 @@
+import 'package:doctor_app/app/data/on_message_notification_model.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:get/get.dart';
 
 class MyEncryptionDecryption {
   //For AES Encryption/Decryption
@@ -19,5 +22,11 @@ class MyEncryptionDecryption {
     final decrypted = encrypter.decrypt64(text, iv: iv);
     print(decrypted);
     return decrypted;
+  }
+}
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+  if(message.data.containsKey("route")){
+    Get.offNamed("layout");
   }
 }

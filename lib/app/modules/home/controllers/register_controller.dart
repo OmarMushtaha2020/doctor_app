@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:doctor_app/shared/components/my_encryption_decryption.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:doctor_app/app/data/doctor_account_model.dart';
@@ -57,7 +58,13 @@ class RegisterController extends GetxController {
     update();
   }
 
-  void createAccount(name, email, phone, uid, password) {
+  void createAccount(name, email, phone, uid, password) async{
+    String deviceToken='';
+    await  FirebaseMessaging.instance.getToken().then((value) async{
+      deviceToken=value.toString();
+      update();
+    });
+
     doctorAccountModel = DoctorAccountModel(
         name,
         email,
@@ -66,7 +73,7 @@ class RegisterController extends GetxController {
         password,
         "write your bio",
         "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",tokenDevice:deviceToken );
     FirebaseFirestore.instance
         .collection('doctors')
         .doc(uid)

@@ -74,19 +74,24 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                             name: name.text,
                             phone: phone.text,
                             bio: bio.text,
+                            deviceToken: doctorAccountModel?.tokenDevice,
                             image: controller.valueOfImage);
                       }
                       if (controller.valueOfCover != null) {
                         controller.updateDoctorsData(
                             name: name.text,
+
                             phone: phone.text,
                             bio: bio.text,
+                            deviceToken: doctorAccountModel?.tokenDevice,
+
                             cover: controller.valueOfCover);
                       }
                       if (controller.valueOfCover == null &&
                           controller.valueOfImage == null) {
                         controller.updateDoctorsData(
-                            name: name.text, phone: phone.text, bio: bio.text);
+                            name: name.text, phone: phone.text, bio: bio.text,                            deviceToken: doctorAccountModel?.tokenDevice,
+                        );
                       }
                       if (controller.valueOfCover != null &&
                           controller.valueOfImage != null) {
@@ -94,6 +99,8 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                             name: name.text,
                             phone: phone.text,
                             bio: bio.text,
+                            deviceToken: doctorAccountModel?.tokenDevice,
+
                             cover: controller.valueOfCover,
                             image: controller.valueOfImage);
                       }

@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/app/data/on_message_notification_model.dart';
 import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
 import 'package:doctor_app/shared/locale/locale.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +16,7 @@ import 'app/modules/home/controllers/page_selection_doctor_or_patient_controller
 import 'app/modules/home/controllers/register_controller.dart';
 import 'app/modules/patients/controllers/layout_patients_app_controller.dart';
 import 'app/routes/app_pages.dart';
+import 'shared/components/my_encryption_decryption.dart';
 
 bool? tokenValueDoctor;
 bool? tokenValuePatients;
@@ -22,10 +26,21 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    if(event.data.containsKey("route")){
+      Get.offNamed("layout");
+    }
+  });
   await GetStorage.init();
 
   valueOfSelection = GetStorage().read("valueOfSelection");
+
 
   if (valueOfSelection == false) {
     tokenOfDoctors = GetStorage().read("token");
