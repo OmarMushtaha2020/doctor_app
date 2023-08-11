@@ -29,7 +29,7 @@ class LayoutController extends GetxController {
   List screen = [
     HomeView(),
     ChatView(),
-    const NotificationsView(),
+    NotificationsView(),
     ProfileView(),
   ];
 
@@ -168,7 +168,7 @@ class LayoutController extends GetxController {
         imageCategorie?.path.length != 0) {
       categoriesModel = CategoriesModel(nameCategories, detailsCategories,
           imageCategories, false, tokenOfDoctors);
-      categories..add(categoriesModel!);
+      categories.add(categoriesModel!);
       FirebaseFirestore.instance
           .collection("Categories")
           .where("nameCategories", isEqualTo: nameCategories)
@@ -183,6 +183,7 @@ class LayoutController extends GetxController {
                 .collection("Categories")
                 .doc(values.id)
                 .update({"id": values.id}).then((value) {
+                  getAllCategories();
               FirebaseFirestore.instance
                   .collection("patients")
                   .get()
@@ -272,12 +273,13 @@ class LayoutController extends GetxController {
   }
 
   Future<void> deleteCategories(id, int index) async {
-    categories.removeAt(index);
     FirebaseFirestore.instance
         .collection("Categories")
         .doc('$id')
         .delete()
         .then((value) {
+      categories.removeWhere((element) => element.id==id);
+update();
       FirebaseFirestore.instance
           .collection("Categories")
           .doc('$id')
@@ -301,6 +303,7 @@ class LayoutController extends GetxController {
                   .doc(element.data()['idOfArticle'])
                   .delete();
             });
+            update();
           });
         });
       });
