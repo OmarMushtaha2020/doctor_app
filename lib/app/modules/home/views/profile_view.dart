@@ -159,6 +159,7 @@ final layout=Get.lazyPut(() => LayoutPatientsAppController());
                             width: 5,
                           ),
                           customOutlineButtom(const Icon(IconBroken.Logout), () {
+                            controller.changeValueOfIndex(0);
                             GetStorage().remove("token").then((value) {
                               loginController.moveBetweenPages(
                                   'PageSelectionDoctorOrPatient');

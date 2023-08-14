@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctor_app/app/data/on_message_notification_model.dart';
-import 'package:doctor_app/app/modules/home/controllers/layout_controller.dart';
+
 import 'package:doctor_app/shared/locale/locale.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

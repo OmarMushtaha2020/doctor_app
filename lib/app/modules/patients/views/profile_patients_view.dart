@@ -119,6 +119,8 @@ Container(height: 125,width: 125,decoration: const BoxDecoration(
                             CustomSizeBox(0,width: 5,),
                             Expanded(
                               child: customOutlineButtom(const Icon(IconBroken.Logout),(){
+                                controller.changeValueOfIndex(0);
+
                                 GetStorage().remove("tokenOfPatients").then((value){
                                   loginController.moveBetweenPages('PageSelectionDoctorOrPatient');
 
