@@ -1,0 +1,30 @@
+{
+  "name": "flutter_string_encryption",
+  "version": "0.0.1",
+  "summary": "Cross-platform string encryption using common best-practices",
+  "description": "Cross-platform string encryption using common best-practices",
+  "homepage": "http://example.com",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Your Company": "email@example.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ],
+    "SCrypto": [
+      "~> 2.0"
+    ]
+  },
+  "static_framework": true,
+  "platforms": {
+    "ios": "9.0"
+  }
+}

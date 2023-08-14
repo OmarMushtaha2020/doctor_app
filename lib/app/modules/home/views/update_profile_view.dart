@@ -149,8 +149,8 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                                        child:
                                        Container(
                                          height: 40,width: 40,
-                                         child:  Icon(IconBroken.Camera,color: Colors.white,),
-                                         decoration: BoxDecoration(
+                                         child:  const Icon(IconBroken.Camera,color: Colors.white,),
+                                         decoration: const BoxDecoration(
                                            shape: BoxShape.circle,
                                            color: Colors.blue
                                          ),

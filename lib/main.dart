@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        Get.lazyPut<LayoutPatientsAppController>(() => LayoutPatientsAppController());
+        Get.put(LayoutPatientsAppController());
 
         LayoutPatientsAppController layoutPatientsAppController =
             Get.find<LayoutPatientsAppController>();

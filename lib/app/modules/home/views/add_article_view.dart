@@ -240,7 +240,7 @@ class AddArticleView extends GetView<AddArticleController> {
                                                     FontWeight.w400,
                                                     controller.imageArticle !=
                                                             null
-                                                        ? "${controller.imageArticle!.path.substring(controller.imageArticle!.path.lastIndexOf("-")).replaceAll("-", "")}"
+                                                        ? controller.imageArticle!.path.substring(controller.imageArticle!.path.lastIndexOf("-")).replaceAll("-", "")
                                                         : "Image Article".tr,
                                                     onTap: () {
                                                       controller.getImage();
@@ -282,7 +282,7 @@ class AddArticleView extends GetView<AddArticleController> {
                                     CustomSizeBox(15),
                                         CustomButtom(() {
                                           if (formKey.currentState!
-                                              .validate()) {
+                                              .validate() &&controller.valueOfImage!="") {
                                             controller
                                                 .addArticle(
                                                     articleName.text,
@@ -292,8 +292,8 @@ class AddArticleView extends GetView<AddArticleController> {
                                                 .then((value) {
                                               articleName.clear();
                                               articleDetails.clear();
-                                              controller.valueOfImage="";
-
+                                             controller. valueOfImage="";
+controller.imageArticle=null;
                                             });
                                           }
                                         }, Colors.blue, 50, double.infinity, 10,

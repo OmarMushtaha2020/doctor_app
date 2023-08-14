@@ -119,6 +119,8 @@ class AddArticleController extends GetxController {
             .doc(value.id)
             .update(articleModel?.toMap() ?? {})
             .then((value) {
+
+update();
           changeValueOfBottomSheet(false);
 
         update();
