@@ -30,51 +30,57 @@ class LayoutPatientsAppController extends GetxController {
   List<CategoriesModel> subsriptions = [];
   CategoriesModel? categoriesModel;
 Future<void>getAllSubsriptions() async{
-  if(subsriptions.isNotEmpty){
-    subsriptions=[];
-update();
-    FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").where("like",isEqualTo: true).where("idOfPatients",isEqualTo: tokenOfPatients).get().then((value) {
-      value.docs.forEach((element) {
-        subsriptions.add(CategoriesModel.fromJson(element.data()));
-        print("the subsriptions is${subsriptions.length}");
-        update();
+  if(tokenOfPatients!=""){
+    if(subsriptions.isNotEmpty){
+      subsriptions=[];
+      update();
+      FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").where("like",isEqualTo: true).where("idOfPatients",isEqualTo: tokenOfPatients).get().then((value) {
+        value.docs.forEach((element) {
+          subsriptions.add(CategoriesModel.fromJson(element.data()));
+          print("the subsriptions is${subsriptions.length}");
+          update();
+        });
       });
-    });
 
-  }else{
-    FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").where("like",isEqualTo: true).where("idOfPatients",isEqualTo: tokenOfPatients).get().then((value) {
-      value.docs.forEach((element) {
-        subsriptions.add(CategoriesModel.fromJson(element.data()));
-        print("the subsriptions is${subsriptions.length}");
-        update();
+    }else{
+      FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").where("like",isEqualTo: true).where("idOfPatients",isEqualTo: tokenOfPatients).get().then((value) {
+        value.docs.forEach((element) {
+          subsriptions.add(CategoriesModel.fromJson(element.data()));
+          print("the subsriptions is${subsriptions.length}");
+          update();
+        });
       });
-    });
 
+    }
   }
+
 }
   Future<void> getAllCategories() async {
-  if(categories.isNotEmpty){
-    categories=[];
+  if(tokenOfPatients!=""){
+    if(categories.isNotEmpty){
+      categories=[];
+      update();
+
+      FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value){
+        value.docs.forEach((element) {
+          categories.add(CategoriesModel.fromJson(element.data()));
+          update();
+        });
+      });
+
+    }else{
+
+      FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value){
+        value.docs.forEach((element) {
+          categories.add(CategoriesModel.fromJson(element.data()));
+          update();
+        });
+      });
+      update();
+    }
     update();
-
-    FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value){
-      value.docs.forEach((element) {
-        categories.add(CategoriesModel.fromJson(element.data()));
-        update();
-      });
-    });
-
-  }else{
-
-    FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).collection("myCategories").get().then((value){
-      value.docs.forEach((element) {
-        categories.add(CategoriesModel.fromJson(element.data()));
-        update();
-      });
-    });
-update();
   }
-    update();
+
   }
 
   Future<void> updateCategories(id,index) async {
@@ -261,14 +267,17 @@ update();
     update();
   }
   Future<void>getPatientsData()async{
-    FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).get().then((value){
+    if(tokenOfPatients!=""){
+      FirebaseFirestore.instance.collection("patients").doc(tokenOfPatients).get().then((value){
 
-      patientsAccountModel=PatientsAccountModel.formJson(value.data()!);
-      print("The User is${patientsAccountModel?.name.toString()}");
+        patientsAccountModel=PatientsAccountModel.formJson(value.data()!);
+        print("The User is${patientsAccountModel?.name.toString()}");
+        update();
+
+      });
       update();
+    }
 
-    });
-  update();
   }
   Future<void> deleteCacheDir() async {
     final cacheDir = await getTemporaryDirectory();
